@@ -3,15 +3,14 @@ var es6Renderer = require('express-es6-template-engine');
 var bodyParser = require('body-parser')
 
 var app = express();
-app.use( bodyParser.json() );
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-
 app.engine('html', es6Renderer);
 app.set('views', 'views');
 app.set('view engine', 'html');
 
+app.use( bodyParser.json() );
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 app.get('/', function(req, res){
     res.render('index');
@@ -39,6 +38,31 @@ app.get('/home', function(req, res){
 
     res.send('You are logged in username:' + username + ' password:' + password);
  });
+
+ app.get('/aboutus', function(req, res){
+    res.render('aboutUs');
+ });
+
+ app.get('/contactus', function(req, res){
+    res.render('contactUs');
+ });
+
+ app.get('/signup', function(req, res){
+    res.render('signup');
+ });
+
+ app.post('/singUpConfirm', function(req, res){
+    let firstname = req.body.first_name;
+    let lastname = req.body.last_name;
+    let email = req.body.email;
+    let phone = req.body.phone;
+    let username = firstname+ " " + lastname;
+    
+   res.send('Your registered username, email and phone no is  : ' + username + " " + email + " " + phone );
+//    res.send('Your registered phone no is  : ' + phone);  
+// problem 1:- couldn't send the info in two lines
+   
+});
 
 app.listen(3000);
 
