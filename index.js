@@ -1,6 +1,7 @@
 var express = require('express');
 var es6Renderer = require('express-es6-template-engine');
 var bodyParser = require('body-parser')
+var randomstring = require("randomstring");
 
 var app = express();
 app.engine('html', es6Renderer);
@@ -83,7 +84,7 @@ app.post('/user/create', (req, res) => {
     };
 
     //Database insert code begins
-    var randomstring = require("randomstring");
+    // var randomstring = require("randomstring"); //  for random string generation
     user._id = randomstring.generate();
 
     let response = {
@@ -191,6 +192,132 @@ app.delete('/user/delete/:id', (req, res) => {
         success: true,
         status: 200,
         message: "User is successfully deleted",
+        data:[]
+    };
+    res.send(response);
+
+});
+
+
+// Product CRUD API => Create
+app.post('/product/create', (req, res) => {
+    let prdtName = req.body.productName;
+    let prdtSize = req.body.productSize;
+    let prdtColor = req.body.productColor;
+
+    let product = {
+        _id: '',
+        productName: prdtName,
+        productSize: prdtSize,
+        productColor: prdtColor
+    };
+
+    //Database insert code begins
+   product._id = randomstring.generate();
+
+    let response = {
+        success: true,
+        status: 200,
+        message: "product successfully created",
+        data:product
+    };
+    res.send(response);
+});
+
+// Product CRUD API => Read
+app.get('/product/read', (req, res) => {
+
+    //Fetch Data from Database
+    let sampleDataFromDatabase = [
+        {
+            productName: "Monitor",
+            productSize: "32",
+            productColor: "Black",
+        },
+        {
+            productName: "TV",
+            productSize: "59",
+            productColor: "Grey",
+        }
+    ];
+
+    let response = {
+        success: true,
+        message: "Product List",
+        data: sampleDataFromDatabase
+    };
+
+    res.send(response)
+
+});
+
+// Product CRUD API UPDATE PART-1
+app.get('/product/:_id', (req, res) => {
+
+    let id = req.params._id;
+
+    //Fetch Data from Database
+
+    let sampleDataFromDatabase = {
+        _id: "oijkdf8uu324df",
+        productName: "Monitor",
+        productSize: "32",
+        productColor: "Black",
+    }
+
+    let response = {
+        success: true,
+        message: "Product details",
+        data: sampleDataFromDatabase
+    };
+
+    res.send(response)
+
+});
+
+
+// Product CRUD API UPDATE PART-2
+app.put('/product/update/:_id', (req, res) => {  // we can use either post or put
+
+    let id = req.params.id;
+
+    let prdtName = req.body.productName;
+    let prdtSize = req.body.productSize;
+    let prdtColor = req.body.productColor;
+
+    let product = {
+        _id: '',
+        productName: prdtName,
+        productSize: prdtSize,
+        productColor: prdtColor
+    };
+
+    //Database insert code begins
+   product._id = randomstring.generate();
+
+    let response = {
+        success: true,
+        status: 200,
+        message: "Product successfully updated",
+        data:product
+    };
+   
+    res.send(response);
+});
+
+// Product CRUD API => Delete
+app.delete('/product/delete/:_id', (req, res) => {
+
+    //Fetch Data from Database
+
+    let id = req.params.id;
+    
+    //Database relate stuff begin
+
+    let response = {
+        success: true,
+        status: 200,
+        message: "Product successfully deleted",
         data:[]
     };
     res.send(response);
