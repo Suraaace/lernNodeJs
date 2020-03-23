@@ -53,6 +53,8 @@ app.get('/home', function(req, res){
     res.render('signup');
  });
 
+ require('./DB');
+
  // CRUD => Ceate
  app.post('/singUpConfirm', function(req, res){
     let firstname = req.body.first_name;
@@ -69,135 +71,8 @@ app.get('/home', function(req, res){
    
 });
 
-
-// CRUD API => Create
-app.post('/user/create', (req, res) => {
-    let myFirstname = req.body.firstName;
-    let myLastname = req.body.lastName;
-    let myEmail = req.body.email;
-
-    let user = {
-        _id: '',
-        firstname: myFirstname,
-        lastname: myLastname,
-        email: myEmail
-    };
-
-    //Database insert code begins
-    // var randomstring = require("randomstring"); //  for random string generation
-    user._id = randomstring.generate();
-
-    let response = {
-        success: true,
-        status: 200,
-        message: "User is successfully created",
-        data:user
-    };
-    res.send(response);
-});
-
-// CRUD API => Read
-app.get('/user', (req, res) => {
-
-    //Fetch Data from Database
-    let sampleDataFromDatabase = [
-        {
-            firstName: "Kiran",
-            lastName: "Mulmi",
-            email: "kiran.mulmi@gmail.com",
-            phoe: "1234567890"
-        },
-        {
-            firstName: "Suresh",
-            lastName: "Shrestha",
-            email: "suresh.shrestha@gmail.com",
-            phoe: "12345340"
-        }
-    ];
-
-    let response = {
-        success: true,
-        message: "List of users",
-        data: sampleDataFromDatabase
-    };
-
-    res.send(response)
-
-});
-
-// CRUD API UPDATE PART-1
-app.get('/user/:id', (req, res) => {
-
-    let id = req.params.id;
-
-    //Fetch Data from Database
-
-    let sampleDataFromDatabase = {
-        _id: "oijkdf8uu324df",
-        firstName: "Suresh",
-        lastName: "Shrestha",
-        email: "suresh.shrestha@gmail.com",
-        phoe: "12345340"
-    }
-
-    let response = {
-        success: true,
-        message: "User details",
-        data: sampleDataFromDatabase
-    };
-
-    res.send(response)
-
-});
-
-
-// CRUD API UPDATE PART-2
-app.post('/user/update/:id', (req, res) => {
-
-    let id = req.params.id;
-
-    let myFirstname = req.body.firstName;
-    let myLastname = req.body.lastName;
-    let myEmail = req.body.email;
-
-    let user = {
-        _id: id,
-        firstname: myFirstname,
-        lastname: myLastname,
-        email: myEmail
-    };
-
-    //Database update code begins
-
-
-    let response = {
-        success: true,
-        status: 200,
-        message: "User is successfully updated",
-        data: user
-    };
-    res.send(response);
-});
-
-// CRUD API => Delete
-app.delete('/user/delete/:id', (req, res) => {
-
-    //Fetch Data from Database
-
-    let id = req.params.id;
-    
-    //Database relate stuff begin
-
-    let response = {
-        success: true,
-        status: 200,
-        message: "User is successfully deleted",
-        data:[]
-    };
-    res.send(response);
-
-});
-
+const userRoutes = require('./modules/user/user.route');
+app.use('/user', userRoutes);
 
 // Product CRUD API => Create
 app.post('/product/create', (req, res) => {
@@ -324,7 +199,7 @@ app.delete('/product/delete/:_id', (req, res) => {
 
 });
 
-app.get('/user/search/id', (req, res) => {
+app.get('/user/search/:id', (req, res) => {
 
     let id= req.params.id;
 
