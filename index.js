@@ -324,6 +324,36 @@ app.delete('/product/delete/:_id', (req, res) => {
 
 });
 
+app.get('/user/search/id', (req, res) => {
+
+    let id= req.params.id;
+
+    var stream = user.search(function (search) {
+        search.firstName().is("John");
+        search.lastName().is("Doe");
+    });
+   
+
+    //Fetch Data from Database
+
+    let sampleDataFromDatabase = {
+        _id: "oijkdf8uu324df",
+        firstName: "Suresh",
+        lastName: "Shrestha",
+        email: "suresh.shrestha@gmail.com",
+        phoe: "12345340"
+    }
+
+    let response = {
+        success: true,
+        message: "User details",
+        data: sampleDataFromDatabase
+    };
+
+    res.send(response)
+
+});
+
 app.listen(3000);
 
 console.log('Server is started at http://localhost:3000');
