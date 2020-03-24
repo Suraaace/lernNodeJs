@@ -23,7 +23,7 @@ routes.route('/create').post((req,res) => {
     })
 });
 
-routes.route('/list').get((req, res) => {
+routes.route('/').get((req, res) => {
     Product.find({},(err, products)=>{
         if (err) return console.error(err);
 
