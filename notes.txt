@@ -1,2 +1,6 @@
 March 23
 Cluster => Database => Collection (table) => Documents (table rows)
+
+March 24
+npm install -g create-react-app
+start react app => npm start
