@@ -13,6 +13,7 @@ import UserIndex from "./modules/user/UserIndex";
 import OrderIndex from "./modules/order/OrderIndex";
 import ProductIndex from "./modules/product/ProductIndex";
 import UserCreate from "./modules/user/UserCreate";
+import ProductCreate from "./modules/product/ProductCreate";
 // import Header from "./templates/Header";
 // import Footer from "./templates/Footer";
 
@@ -48,6 +49,9 @@ class App extends React.Component {
                 </Route>
                 <Route exact path="/product">
                   <ProductIndex />
+                </Route>
+                <Route exact path="/product/create">
+                  <ProductCreate />
                 </Route>
                 <Route exact path="/order">
                   <OrderIndex />
