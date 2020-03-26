@@ -8,8 +8,8 @@ let Product = require('./product.model');
 routes.route('/create').post((req,res) => {
     let obj = {
         productName : req.body.productName,
-        productColor : req.body.productColor,
-        productSize : req.body.productSize
+        productDescription : req.body.productDescription,
+        productPrice : req.body.productPrice
     }
 
     let product = new Product(obj);
@@ -61,8 +61,8 @@ routes.route('/update/:id').post((req, res) => {
         if (err) return console.error(err);
 
         product.productName = req.body.productName;
-        product.productColor = req.body.productColor;
-        product.productSize = req.body.productSize;
+        product.productDescription = req.body.productDescription;
+        product.productPrice = req.body.productPrice;
 
         product.save().then((product) => {
             let response ={

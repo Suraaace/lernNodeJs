@@ -13,7 +13,6 @@ class UserIndex extends React.Component{
     }
 
     componentDidMount() {
-        console.log('b');
         // API call to fetch list of user in Nodejs
         axios.get('http://localhost:3000/api/user/')
             .then((response) => {
