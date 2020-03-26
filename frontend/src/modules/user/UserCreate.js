@@ -1,28 +1,68 @@
 import React from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-
-
+import axios from "axios";
 
 class UserCreate extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            firstName: "",
+            lastName: "",
+            email: "",
+            phone: "",
+        }
+
+    }
+
+    changeFirstNameHandler = (event) => {
+        this.setState({firstName: event.target.value});
+    };
+
+    changeLastNameHandler = (event) => {
+        this.setState({lastName: event.target.value});
+    };
+
+    changeEmailHandler = (event) => {
+        this.setState({email: event.target.value});
+    };
+
+    changePhoneHandler = (event) => {
+        this.setState({phone: event.target.value});
+    };
+
+    submitHandler = () => {
+
+        //API Call created in Nodejs
+        axios.post('http://localhost:3000/api/user/create', this.state)
+            .then((response) => {
+                this.setState({});
+               console.log(response);
+               console.log("successfully saved");
+            });
+    };
+
     render() {
         return (
             <div>
                 <form>
-                    <div class="form-group">
-                        <label for="firsName ">First Name</label>
-                        <input type="text" class="form-control" placeholder="First Name"/>
+                    <div className="form-group">
+                        <label htmlFor="firsName ">First Name</label>
+                        <input type="text" className="form-control" placeholder="First Name" value={this.state.firstName} onChange={this.changeFirstNameHandler}/>
                     </div>
-                    <div class="form-group">
-                        <label for="lastName ">Last Name</label>
-                        <input type="text" class="form-control" placeholder="Last Name"/>
-                        {/* <input type="text" class="form-control" id="FirstName" placeholder="First Name"> */}
+                    <div className="form-group">
+                        <label htmlFor="lastName ">Last Name</label>
+                        <input type="text" className="form-control" placeholder="Last Name" value={this.state.lastName} onChange={this.changeLastNameHandler}/>
                     </div>
-                    <div class="form-group">
-                        <label for="phoneNumber">Phone Number</label>
-                        <input type="text" class="form-control" placeholder="Phone Number"/>
+                    <div className="form-group">
+                        <label htmlFor="lastName ">Email</label>
+                        <input type="text" className="form-control" placeholder="Email" value={this.state.email} onChange={this.changeEmailHandler}/>
                     </div>
-                    <button type="submit" class="btn btn-primary"> Register </button>
+                    <div className="form-group">
+                        <label htmlFor="phoneNumber">Phone Number</label>
+                        <input type="text" className="form-control" placeholder="Phone Number" value={this.state.phone} onChange={this.changePhoneHandler}/>
+                    </div>
+                    <button type="button" className="btn btn-primary" onClick={this.submitHandler}> Save</button>
                 </form>
 
             </div>

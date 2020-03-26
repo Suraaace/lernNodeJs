@@ -1,9 +1,11 @@
 var express = require('express');
 var es6Renderer = require('express-es6-template-engine');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+var cors = require('cors');
 var randomstring = require("randomstring");
 
 var app = express();
+app.use(cors());
 app.engine('html', es6Renderer);
 app.set('views', 'views');
 app.set('view engine', 'html');

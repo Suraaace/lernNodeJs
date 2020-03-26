@@ -23,9 +23,8 @@ class App extends React.Component {
     return(
       <Router>
         {/* Header Start */}
-        <div className={'container-fluid'}>
-          <Header/>
-        </div>
+
+        <Header/>
         {/* Header Ends*/}
 
         {/* Body Starts*/}
@@ -33,13 +32,15 @@ class App extends React.Component {
           <div className={'row'}>
 
             {/* Sidebar */}
+            <div className={'col-2 sidebar-wrapper'}>
             <nav className="nav flex-column" style={ {backgroundColor: "#e8e8e8"}} >
               <Link to="/user" className="nav-link">User Management</Link>
               <Link to="/product" className="nav-link">Product Management</Link>
               <Link to="/order" className="nav-link">Order Management</Link>
             </nav>
+            </div>
             {/* Body */}
-            <div className={'col-10'}>
+            <div className={'col-10 body-wrapper'}>
               <Switch>
                 <Route exact path="/user">
                   <UserIndex />
