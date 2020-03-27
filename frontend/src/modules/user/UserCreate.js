@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import history from "../../helper/history";
 
 class UserCreate extends React.Component {
 
@@ -13,6 +14,22 @@ class UserCreate extends React.Component {
             phone: "",
         }
         
+    }
+
+    componentDidMount() {
+        let id = this.props.match.params.id;
+        if(id) {
+            axios.get('http://localhost:4000/api/user/'+id)
+                .then((response) => {
+                    this.setState({
+                        firstName: response.data.data.firstName,
+                        lastName: response.data.data.lastName,
+                        email: response.data.data.email,
+                        phone: response.data.data.phone,
+                    });
+                })
+                .catch(err => err);
+        }
     }
 
     changeFirstNameHandler = (event) => {
@@ -32,14 +49,19 @@ class UserCreate extends React.Component {
     };
 
     submitHandler = () => {
+        let id = this.props.match.params.id;
+        if(id) {
+            axios.post('http://localhost:4000/api/user/update/'+id, this.state)
+                .then((response) => {
+                    history.push('/user');
+                });
+        } else {
+            axios.post('http://localhost:4000/api/user/create', this.state)
+                .then((response) => {
+                    history.push('/user');
+                });
+        }
 
-        //API Call created in Nodejs
-        axios.post('http://localhost:3000/api/user/create', this.state)
-            .then((response) => {
-                this.setState({});
-               console.log(response);
-               console.log("successfully saved");
-            });
     };
 
     render() {

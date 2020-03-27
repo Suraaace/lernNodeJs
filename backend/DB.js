@@ -1,4 +1,4 @@
-const MONGODB_URL = "mongodb+srv://suresh:suresh@cluster0-c1r7w.mongodb.net/test?retryWrites=true&w=majority";
+const MONGODB_URL = process.env.MONGODB_URL;
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 mongoose.connect(MONGODB_URL, {

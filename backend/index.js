@@ -2,6 +2,7 @@ var express = require('express');
 var es6Renderer = require('express-es6-template-engine');
 var bodyParser = require('body-parser');
 var cors = require('cors');
+require('dotenv').config();
 var randomstring = require("randomstring");
 
 var app = express();
@@ -15,7 +16,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
- require('./DB');
+require('./DB');
 
 // Routes
 const userRoutes = require('./modules/user/user.route');
@@ -24,6 +25,7 @@ app.use('/api/user', userRoutes);
 const productRoutes = require('./modules/product/product.route');
 app.use('/api/product', productRoutes);
 
-app.listen(3000);
+let port = process.env.PORT;
+app.listen(port);
 
-console.log('Server is started at http://localhost:3000');
+console.log('Server is started at http://localhost:'+port);

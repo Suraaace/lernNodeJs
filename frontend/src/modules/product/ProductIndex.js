@@ -16,7 +16,7 @@ export default class ProductIndex extends React.Component{ // exporting and defi
 
         componentDidMount() {
             // API call to fetch list of user in Nodejs
-            axios.get('http://localhost:3000/api/product/')
+            axios.get('http://localhost:4000/api/product/')
                 .then((response) => {
                     this.setState({products: response.data.data });
                 })

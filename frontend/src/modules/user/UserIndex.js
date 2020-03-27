@@ -1,6 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import axios from "axios";
+import history from "../../helper/history";
 
 class UserIndex extends React.Component{
 
@@ -14,12 +15,20 @@ class UserIndex extends React.Component{
 
     componentDidMount() {
         // API call to fetch list of user in Nodejs
-        axios.get('http://localhost:3000/api/user/')
+        axios.get('http://localhost:4000/api/user/')
             .then((response) => {
                 this.setState({users: response.data.data });
             })
             .catch(err => err);
     }
+
+    handleDelete = (id) => {
+        axios.delete('http://localhost:4000/api/user/delete/'+id)
+            .then((response) => {
+                history.push('/user');
+            })
+            .catch(err => err);
+    };
 
     render() {
         return(
@@ -29,10 +38,11 @@ class UserIndex extends React.Component{
                 <table className={'table'}>
                     <thead>
                     <tr>
-                        <td>First Name</td>
-                        <td>Last Name</td>
-                        <td>Email</td>
-                        <td>Phone</td>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th colSpan={2}>Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -44,6 +54,8 @@ class UserIndex extends React.Component{
                                    <td>{user.lastName}</td>
                                    <td>{user.email}</td>
                                    <td>{user.phone}</td>
+                                   <td><Link to={'user/edit/' + user._id}>Edit</Link></td>
+                                   <td><button type={'button'} onClick={() => this.handleDelete(user._id)} className={'btn btn-danger'}>Delete</button></td>
                                </tr>
                            )
                        })

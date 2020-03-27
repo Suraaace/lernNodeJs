@@ -3,13 +3,13 @@ const Schema = mongoose.Schema;
 
 
 const productSchema = new Schema({
-    productName: {
+    name: {
         type: String
     },
-    productDescription: {
+    description: {
         type: String
     },
-    productPrice: {
+    price: {
         type: String
     }
     },   

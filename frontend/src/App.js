@@ -7,12 +7,13 @@ import {
   Link
 } from "react-router-dom";
 import {Header, Footer} from "./templates/KmTemplate";
-
+import history from "./helper/history";
 import UserIndex from "./modules/user/UserIndex";
 import OrderIndex from "./modules/order/OrderIndex";
 import ProductIndex from "./modules/product/ProductIndex";
 import UserCreate from "./modules/user/UserCreate";
 import ProductCreate from "./modules/product/ProductCreate";
+import {PublicRoute} from "./PublicRoutes";
 // import Header from "./templates/Header";
 // import Footer from "./templates/Footer";
 
@@ -20,7 +21,7 @@ class App extends React.Component {
 
   render() {
     return(
-      <Router>
+      <Router history={history}>
         {/* Header Start */}
 
         <Header/>
@@ -41,12 +42,10 @@ class App extends React.Component {
             {/* Body */}
             <div className={'col-10 body-wrapper'}>
               <Switch>
-                <Route exact path="/user">
-                  <UserIndex />
-                </Route>
-                <Route exact path="/user/create">
-                  <UserCreate />
-                </Route>
+                <PublicRoute exact path={'/user'} component={UserIndex}/>
+                <PublicRoute exact path={'/user/create'} component={UserCreate}/>
+                <PublicRoute exact path={'/user/edit/:id'} component={UserCreate}/>
+
                 <Route exact path="/product">
                   <ProductIndex />
                 </Route>

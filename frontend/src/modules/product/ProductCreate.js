@@ -8,26 +8,26 @@ export default class ProductCreate extends React.Component{
         super(props);
 
         this.state= {
-            productName: "",
-            productDescription: "",
-            productPrice: "",
+            name: "",
+            description: "",
+            price: "",
         }
     }
 
     changeProductNameHandler = (event) => {
-        this.setState({productName: event.target.value});
+        this.setState({name: event.target.value});
     };
 
     changeProductDescriptionHandler = (event) => {
-        this.setState({productDescription: event.target.value});
+        this.setState({description: event.target.value});
     };
 
     changeProductPriceHandler = (event) => {
-        this.setState({productPrice: event.target.value});
+        this.setState({price: event.target.value});
     };
 
     submitHandler = () => {
-        axios.post('http://localhost:3000/api/product/create', this.state)
+        axios.post('http://localhost:4000/api/product/create', this.state)
             .then((response) => {
                 this.setState({});
                 console.log(response);
@@ -40,19 +40,19 @@ export default class ProductCreate extends React.Component{
         return(
             <div>
                <form>
-                   <div class="form-group">
-                       <label for="productName">Name</label>
-                       <input type="text" class="form-control" placeholder="Product Name" value={this.state.productName} onChange={this.changeProductNameHandler} />
+                   <div className="form-group">
+                       <label htmlFor="productName">Name</label>
+                       <input type="text" className="form-control" placeholder="Product Name" value={this.state.name} onChange={this.changeProductNameHandler} />
                    </div>
-                    <div class="form-group"> 
-                        <label for="productDescription">Description</label>
-                        <input type="text" class="form-control" placeholder="Product Description" value={this.state.productDescription} onChange={this.changeProductDescriptionHandler}/>
+                    <div className="form-group">
+                        <label htmlFor="productDescription">Description</label>
+                        <input type="text" className="form-control" placeholder="Product Description" value={this.state.description} onChange={this.changeProductDescriptionHandler}/>
                     </div>    
-                    <div class="form-group">
-                        <label for="productPrice">Price</label>
-                        <input type="text" class="form-control" placeholder="Product Price" value={this.state.productPrice} onChange={this.changeProductPriceHandler}/>
+                    <div className="form-group">
+                        <label htmlFor="productPrice">Price</label>
+                        <input type="text" className="form-control" placeholder="Product Price" value={this.state.price} onChange={this.changeProductPriceHandler}/>
                     </div>
-                    <button type="button" class="btn btn-primary" onClick={this.submitHandler}>Save</button>
+                    <button type="button" className="btn btn-primary" onClick={this.submitHandler}>Save</button>
                </form>
             </div>
         )
