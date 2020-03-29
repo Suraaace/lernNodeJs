@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
-  BrowserRouter as Router,
+  Router,
   Switch,
   Route,
   Link
@@ -45,13 +45,17 @@ class App extends React.Component {
                 <PublicRoute exact path={'/user'} component={UserIndex}/>
                 <PublicRoute exact path={'/user/create'} component={UserCreate}/>
                 <PublicRoute exact path={'/user/edit/:id'} component={UserCreate}/>
-
-                <Route exact path="/product">
+               
+                <PublicRoute exact path={'/product'} component={ProductIndex}/>
+                <PublicRoute exact path={'/product/create'} component={ProductCreate}/>
+                <PublicRoute exact path={'/product/edit/:id'} component={ProductCreate}/>
+                
+                {/* <Route exact path="/product">            // another way to declare route
                   <ProductIndex />
                 </Route>
                 <Route exact path="/product/create">
                   <ProductCreate />
-                </Route>
+                </Route> */}
                 <Route exact path="/order">
                   <OrderIndex />
                 </Route>

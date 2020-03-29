@@ -13,7 +13,7 @@ class UserCreate extends React.Component {
             email: "",
             phone: "",
         }
-        
+
     }
 
     componentDidMount() {
@@ -53,12 +53,12 @@ class UserCreate extends React.Component {
         if(id) {
             axios.post('http://localhost:4000/api/user/update/'+id, this.state)
                 .then((response) => {
-                    history.push('/user');
+                  //  history.push('/user');
                 });
         } else {
             axios.post('http://localhost:4000/api/user/create', this.state)
                 .then((response) => {
-                    history.push('/user');
+                  //  history.push('/user');
                 });
         }
 
