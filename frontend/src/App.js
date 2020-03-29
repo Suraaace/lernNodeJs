@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
-  BrowserRouter as Router,
+  Router,
   Switch,
   Route,
   Link
@@ -34,7 +34,7 @@ class App extends React.Component {
             {/* Sidebar */}
             <div className={'col-2 sidebar-wrapper'}>
             <nav className="nav flex-column" style={ {backgroundColor: "#e8e8e8"}} >
-              <Link to="/user" className="nav-link">User Management</Link>
+              <Link to="/admin/user" className="nav-link">User Management</Link>
               <Link to="/product" className="nav-link">Product Management</Link>
               <Link to="/order" className="nav-link">Order Management</Link>
             </nav>
@@ -42,9 +42,9 @@ class App extends React.Component {
             {/* Body */}
             <div className={'col-10 body-wrapper'}>
               <Switch>
-                <PublicRoute exact path={'/user'} component={UserIndex}/>
-                <PublicRoute exact path={'/user/create'} component={UserCreate}/>
-                <PublicRoute exact path={'/user/edit/:id'} component={UserCreate}/>
+                <PublicRoute exact path={'/admin/user'} component={UserIndex}/>
+                <PublicRoute exact path={'/admin/user/create'} component={UserCreate}/>
+                <PublicRoute exact path={'/admin/user/edit/:id'} component={UserCreate}/>
 
                 <Route exact path="/product">
                   <ProductIndex />
