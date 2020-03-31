@@ -7,9 +7,9 @@ let Product = require('./product.model');
 
 routes.route('/create').post((req,res) => {
     let obj = {
-        productName : req.body.productName,
-        productDescription : req.body.productDescription,
-        productPrice : req.body.productPrice
+        name : req.body.name,
+        description : req.body.description,
+        price : req.body.price
     }
 
     let product = new Product(obj);
@@ -60,9 +60,9 @@ routes.route('/update/:id').post((req, res) => {
     Product.findById(id, (err, product) => {
         if (err) return console.error(err);
 
-        product.productName = req.body.productName;
-        product.productDescription = req.body.productDescription;
-        product.productPrice = req.body.productPrice;
+        product.name = req.body.name;
+        product.description = req.body.description;
+        product.price = req.body.price;
 
         product.save().then((product) => {
             let response ={
