@@ -25,20 +25,23 @@ routes.route('/create').post((req, res) => {
 
 });
 
-routes.route('/').get((req, res) => {
-    
-    User.find({}, (err, abcs) => {
-        
-        if (err) return console.error(err);
+routes.route('/').get( async (req, res) => {
 
-        let response = {
-            success: true,
-            message: "Users Listing",
-            data:abcs
-        };
-        res.status(200).json(response);
+    let dataCount = await User.countDocuments();
 
-    });
+    let limit = parseInt(req.query.limit); // how many data
+    let offset = parseInt(req.query.offset); // starting point
+
+    let user = await User.find().skip(offset).limit(limit);
+
+    let response = {
+        success: true,
+        message: "Users Listing",
+        data: user,
+        count: dataCount
+    };
+
+    res.status(200).json(response);
 });
 
 routes.route('/:id').get((req, res) => {

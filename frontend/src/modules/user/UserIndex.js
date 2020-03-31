@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import axios from "axios";
 import history from "../../helper/history";
 import Alert from "../../helper/alert";
+import ReactPaginate from 'react-paginate';
 
 class UserIndex extends React.Component{
 
@@ -10,6 +11,9 @@ class UserIndex extends React.Component{
         super(props);
 
         this.state = {
+            offset: 0,
+            limit: 5,
+            pageCount: 0,
             pageTitle: 'User Management',
             users: [],
             userCount: 0,
@@ -32,12 +36,33 @@ class UserIndex extends React.Component{
     loadDataFromServer = () => {
 
         // Get All data from API and update the state
-        axios.get(process.env.REACT_APP_API_HOST_URL+'/user/')
+        axios.get(process.env.REACT_APP_API_HOST_URL+'/user/',  {
+            params: {
+                limit: this.state.limit,
+                offset: this.state.offset
+            }})
             .then((response) => {
-                this.setState({users: response.data.data });
-                this.setState({userCount: response.data.data.length})
+
+                let totalData = response.data.count;
+
+                this.setState( state => {
+                    state.users = response.data.data;
+                    state.userCount = totalData;
+                    state.pageCount = Math.ceil(totalData / this.state.limit);
+                    return state;
+                });
+
             })
             .catch(err => err);
+    };
+
+    handlePageClick = data => {
+        let selected = data.selected;
+        let offset = Math.ceil(selected * this.state.limit);
+
+        this.setState({ offset: offset }, () => {
+            this.loadDataFromServer();
+        });
     };
 
     render() {
@@ -76,7 +101,27 @@ class UserIndex extends React.Component{
                             </tbody>
                         </table>
                     </div>
+                    <ReactPaginate
+                        previousLabel={'previous'}
+                        nextLabel={'next'}
+                        breakLabel={'...'}
+                        breakClassName={'break-me'}
+                        pageCount={this.state.pageCount}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        onPageChange={this.handlePageClick}
+                        containerClassName={'pagination'}
+                        subContainerClassName={'pages pagination'}
+                        pageClassName={'page-item'}
+                        previousClassName={'page-item'}
+                        nextClassName={'page-item'}
+                        pageLinkClassName={'page-link'}
+                        previousLinkClassName={'page-link'}
+                        nextLinkClassName={'page-link'}
+                        activeClassName={'active'}
+                    />
                 </div>
+
             </div>
         )
     }

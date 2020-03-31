@@ -63,15 +63,16 @@ class App extends React.Component {
               }
               <Switch>
                 <PublicRoute exact path={'/admin/user'} component={UserIndex}/>
-                <PublicRoute exact path={'/admin/user/create'} component={UserCreate} setGlobalMessage={this.setGlobalMessage}/>
+                <PublicRoute exact path={'/admin/user/create'} component={UserCreate}/>
                 <PublicRoute exact path={'/admin/user/edit/:id'} component={UserCreate}/>
 
-                <Route exact path="/product">
-                  <ProductIndex />
-                </Route>
-                <Route exact path="/product/create">
+                <PublicRoute exact path={'/product'} component={ProductIndex}/>
+                <PublicRoute exact path={'/product/create'} component={ProductCreate}/>
+                <PublicRoute exact path={'/product/edit/:id'} component={ProductCreate}/>
+
+                {/* <Route exact path="/product/create"> // other way to call route
                   <ProductCreate />
-                </Route>
+                </Route> */}
                 <Route exact path="/order">
                   <OrderIndex />
                 </Route>
