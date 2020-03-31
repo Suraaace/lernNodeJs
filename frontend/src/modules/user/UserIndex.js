@@ -43,12 +43,6 @@ class UserIndex extends React.Component{
     render() {
         return(
             <div>
-                <Alert messageTitle={'abcd message'} messageType={'danger'}/>
-                { this.state.message &&
-                    <div className="alert alert-success" role="alert">
-                        { this.state.message}
-                    </div>
-                }
                 <h2>{ this.state.pageTitle}</h2>
                 <Link to="/admin/user/create" className="btn btn-primary float-right">Create User</Link>
                 <div className="card-body">

@@ -14,10 +14,24 @@ import ProductIndex from "./modules/product/ProductIndex";
 import UserCreate from "./modules/user/UserCreate";
 import ProductCreate from "./modules/product/ProductCreate";
 import {PublicRoute} from "./PublicRoutes";
+import Alert from "./helper/alert";
 // import Header from "./templates/Header";
 // import Footer from "./templates/Footer";
 
 class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      message: ""
+    };
+
+    this.setGlobalMessage = this.setGlobalMessage.bind(this);
+  }
+
+  setGlobalMessage = () => {
+    this.setState({message:"abc"});
+  };
 
   render() {
     return(
@@ -41,9 +55,15 @@ class App extends React.Component {
             </div>
             {/* Body */}
             <div className={'col-10 body-wrapper'}>
+
+              { this.state.message &&
+              <div className="alert alert-success" role="alert">
+                <Alert messageTitle={'abcd message'} messageType={'danger'}/>
+              </div>
+              }
               <Switch>
                 <PublicRoute exact path={'/admin/user'} component={UserIndex}/>
-                <PublicRoute exact path={'/admin/user/create'} component={UserCreate}/>
+                <PublicRoute exact path={'/admin/user/create'} component={UserCreate} setGlobalMessage={this.setGlobalMessage}/>
                 <PublicRoute exact path={'/admin/user/edit/:id'} component={UserCreate}/>
 
                 <Route exact path="/product">
