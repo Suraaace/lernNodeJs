@@ -19,7 +19,7 @@ class UserCreate extends React.Component {
     componentDidMount() {
         let id = this.props.match.params.id;
         if(id) {
-            axios.get('http://localhost:4000/api/user/'+id)
+            axios.get(process.env.REACT_APP_API_HOST_URL+'/user/'+id)
                 .then((response) => {
                     this.setState({
                         firstName: response.data.data.firstName,
@@ -51,14 +51,22 @@ class UserCreate extends React.Component {
     submitHandler = () => {
         let id = this.props.match.params.id;
         if(id) {
-            axios.post('http://localhost:4000/api/user/update/'+id, this.state)
+            axios.post(process.env.REACT_APP_API_HOST_URL+'/user/update/'+id, this.state)
                 .then((response) => {
+<<<<<<< HEAD
                   //  history.push('/user');
+=======
+                    history.push('/admin/user');
+>>>>>>> develop
                 });
         } else {
-            axios.post('http://localhost:4000/api/user/create', this.state)
+            axios.post(process.env.REACT_APP_API_HOST_URL+'/user/create', this.state)
                 .then((response) => {
+<<<<<<< HEAD
                   //  history.push('/user');
+=======
+                    history.push('/admin/user');
+>>>>>>> develop
                 });
         }
 
