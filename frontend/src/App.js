@@ -49,7 +49,7 @@ class App extends React.Component {
             <div className={'col-2 sidebar-wrapper'}>
             <nav className="nav flex-column" style={ {backgroundColor: "#e8e8e8"}} >
               <Link to="/admin/user" className="nav-link">User Management</Link>
-              <Link to="/product" className="nav-link">Product Management</Link>
+              <Link to="/admin/product" className="nav-link">Product Management</Link>
               <Link to="/order" className="nav-link">Order Management</Link>
             </nav>
             </div>
@@ -66,9 +66,9 @@ class App extends React.Component {
                 <PublicRoute exact path={'/admin/user/create'} component={UserCreate}/>
                 <PublicRoute exact path={'/admin/user/edit/:id'} component={UserCreate}/>
 
-                <PublicRoute exact path={'/product'} component={ProductIndex}/>
-                <PublicRoute exact path={'/product/create'} component={ProductCreate}/>
-                <PublicRoute exact path={'/product/edit/:id'} component={ProductCreate}/>
+                <PublicRoute exact path={'/admin/product'} component={ProductIndex}/>
+                <PublicRoute exact path={'/admin/product/create'} component={ProductCreate}/>
+                <PublicRoute exact path={'/admin/product/edit/:id'} component={ProductCreate}/>
 
                 {/* <Route exact path="/product/create"> // other way to call route
                   <ProductCreate />

@@ -11,12 +11,12 @@ class UserIndex extends React.Component{
         super(props);
 
         this.state = {
-            offset: 0,
+            offset: 0,          // pagination variable offset, limit, pagecount
             limit: 5,
             pageCount: 0,
             pageTitle: 'User Management',
             users: [],
-            userCount: 0,
+            userCount: 0,         // to count the total no of user 
             message:""
         }
     }

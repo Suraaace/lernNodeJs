@@ -2,7 +2,6 @@ const express = require("express");
 const routes = express.Router();
 
 
-
 let Product = require('./product.model');
 
 routes.route('/create').post((req,res) => {
@@ -23,17 +22,24 @@ routes.route('/create').post((req,res) => {
     })
 });
 
-routes.route('/').get((req, res) => {
-    Product.find({},(err, products)=>{
-        if (err) return console.error(err);
+routes.route('/').get( async (req, res) => { 
+    let dataCount = await Product.countDocuments(); // awaits stops the threads untill this line executes.
+        
+    let limit = parseInt(req.query.limit);
+    let offset = parseInt(req.query.offset);
+    
+    let product = await Product.find().skip(offset).limit(limit);
+    // Product.find({},(err, products)=>{
+    //     if (err) return console.error(err);
 
         let response={
             success : true,
             message : "List of Products.",
-            data : products
+            data : product,
+            count : dataCount
         };
         res.status(200).json(response);
-    })
+   // })
 });
 
 routes.route('/:id').get((req, res)=>{
