@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import history from "../../helper/history";
+import ReactPaginate from 'react-paginate';
 
 
 
@@ -12,32 +13,66 @@ export default class ProductIndex extends React.Component{ // exporting and defi
         super(props);
 
         this.state = {
-            products: []
+            offset:0,
+            limit: 5,
+            pageCount: 0,
+            pageTitle: 'Product Management',
+            products: [],
+            productCount: 0,
         }
     }
 
         componentDidMount() {
-            // API call to fetch list of product in Nodejs
-            axios.get('http://localhost:4000/api/product/')
-                .then((response) => {
-                    this.setState({products: response.data.data });
-                })
-                .catch(err => err);
+            this.loadDataFromServer();
         }
 
         handleDelete = (id) => {
-            axios.delete('http://localhost:4000/api/product/delete/'+id)
+            axios.delete(process.env.REACT_APP_API_HOST_URL+'/product/delete/'+id)
                 .then((response) => {
-                    history.push('/product');
+                   this.loadDataFromServer();
                 })
                 .catch(err => err);
         };
 
+        loadDataFromServer = ()=>{
+            // API call to fetch list of product in Nodejs
+            axios.get(process.env.REACT_APP_API_HOST_URL+'/product/',{
+                params: {
+                    limit: this.state.limit,
+                    offset: this.state.offset,
+                } 
+            })
+            .then((response) => {
+                let totalData = response.data.count;
+
+                this.setState(state => {
+                    state.products = response.data.data;
+                    state.productCount = totalData;
+                    state.pageCount = Math.ceil(totalData/this.state.limit);
+                    return state;  // returns back the value 
+                 });
+            })
+            .catch(err => err);
+        }
+
+        handlePageClick = data => {
+            let selected = data.selected;
+            let offset = Math.ceil(selected * this.state.limit);
+    
+            this.setState({ offset: offset }, () => {
+                this.loadDataFromServer();
+            });
+        };
+
+
     render() {
         return(
             <div>
-                <h2>List of Products</h2>
-                <Link to="/product/create" className="btn btn-primary">Create Product</Link>
+                <h2>{this.state.pageTitle}</h2>
+                <Link to="/admin/product/create" className="btn btn-primary float-right">Create Product</Link>
+                <div className="card-body">
+                <h5 className="card-title">Products({this.state.productCount})</h5>
+                <div className="card">
                 <table className={"table"}>
                     <thead>
                     <tr>
@@ -55,17 +90,36 @@ export default class ProductIndex extends React.Component{ // exporting and defi
                                         <td>{product.name}</td>
                                         <td>{product.description}</td>
                                         <td>{product.price}</td>
-                                        <td> <Link to={'product/edit/'+ product._id}>Edit</Link></td>
+                                        <td> <Link to={'/admin/product/edit/'+ product._id}>Edit</Link></td>
                                         <td> <button type={'button'} onClick={()=>this.handleDelete(product._id)} className={'btn btn-danger'}>Delete</button> </td>
                                     </tr>
                                 )
-
-                                
                             })
                         }
                     </tbody>
                 </table>
+                </div>
+                <ReactPaginate
+                        previousLabel={'previous'}
+                        nextLabel={'next'}
+                        breakLabel={'...'}
+                        breakClassName={'break-me'}
+                        pageCount={this.state.pageCount}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        onPageChange={this.handlePageClick}
+                        containerClassName={'pagination'}
+                        subContainerClassName={'pages pagination'}
+                        pageClassName={'page-item'}
+                        previousClassName={'page-item'}
+                        nextClassName={'page-item'}
+                        pageLinkClassName={'page-link'}
+                        previousLinkClassName={'page-link'}
+                        nextLinkClassName={'page-link'}
+                        activeClassName={'active'}
+                />
             </div>
+        </div>
         )
     }
 }

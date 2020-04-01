@@ -19,7 +19,7 @@ export default class ProductCreate extends React.Component{
     componentDidMount() {
         let id = this.props.match.params.id;
         if(id) {
-            axios.get('http://localhost:4000/api/product/'+id)
+            axios.get(process.env.REACT_APP_API_HOST_URL+'/product/'+id)
                 .then((response) => {
                     this.setState({
                         name: response.data.data.name,
@@ -46,14 +46,14 @@ export default class ProductCreate extends React.Component{
     submitHandler = () => {
         let id = this.props.match.params.id;
         if(id) {
-            axios.post('http://localhost:4000/api/product/update/'+id, this.state)
+            axios.post(process.env.REACT_APP_API_HOST_URL+'/product/update/'+id, this.state)
             .then((response) => {
-                history.push('/product');
+                history.push('/admin/product');
             })
         } else {
-        axios.post('http://localhost:4000/api/product/create', this.state)
+        axios.post(process.env.REACT_APP_API_HOST_URL+'/product/create', this.state)
             .then((response) => {
-                history.push('/product');
+                history.push('/admin/product');
             })
         }
     }
