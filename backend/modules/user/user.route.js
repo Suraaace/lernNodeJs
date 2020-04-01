@@ -27,12 +27,30 @@ routes.route('/create').post((req, res) => {
 
 routes.route('/').get( async (req, res) => {
 
+    let search = JSON.parse(req.query.search);
+
     let dataCount = await User.countDocuments();
 
     let limit = parseInt(req.query.limit); // how many data
     let offset = parseInt(req.query.offset); // starting point
 
-    let user = await User.find().skip(offset).limit(limit);
+    let filter = {};
+    if(search.firstName) {
+        //filter["firstName"] = search.firstName; // Exact search
+        filter["firstName"] = {
+            $regex: '.*' + search.firstName + '.*',
+            $options: 'i'
+        } // Like Search
+    }
+
+    if(search.email) {
+        filter["email"] = {
+            $regex: '.*' + search.email + '.*',
+            $options: 'i'
+        }
+    }
+
+    let user = await User.find(filter).skip(offset).limit(limit);
 
     let response = {
         success: true,

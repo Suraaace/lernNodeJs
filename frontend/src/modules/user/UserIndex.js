@@ -17,7 +17,11 @@ class UserIndex extends React.Component{
             pageTitle: 'User Management',
             users: [],
             userCount: 0,         // to count the total no of user 
-            message:""
+            message:"",
+            search: {
+                firstName: "",
+                email: ""
+            }
         }
     }
 
@@ -39,7 +43,8 @@ class UserIndex extends React.Component{
         axios.get(process.env.REACT_APP_API_HOST_URL+'/user/',  {
             params: {
                 limit: this.state.limit,
-                offset: this.state.offset
+                offset: this.state.offset,
+                search: this.state.search
             }})
             .then((response) => {
 
@@ -65,10 +70,47 @@ class UserIndex extends React.Component{
         });
     };
 
+    searchFirstName = (event) => {
+        let firstName = event.target.value;
+
+        this.setState( state => {
+            state.search.firstName = firstName;
+            return state;
+        }, () => {
+            this.loadDataFromServer();
+        });
+    };
+
+    searhByEmail = (event) => {
+        let email = event.target.value;
+
+        this.setState( state => {
+            state.search.email = email;
+            return state;
+        }, () => {
+            this.loadDataFromServer();
+        });
+    };
+
     render() {
         return(
             <div>
                 <h2>{ this.state.pageTitle}</h2>
+                <div className={'row'}>
+                    <div className={'col2'}>
+                        <div className={'form-group'}>
+                            <label>First Name</label>
+                            <input type={'text'} placeholder={'First Name'} className={'form-control'} onChange={this.searchFirstName}/>
+                        </div>
+                    </div>
+                    <div className={'col2'}>
+                        <div className={'form-group'}>
+                            <label>Email</label>
+                            <input type={'text'} placeholder={'Email'} className={'form-control'} onChange={this.searhByEmail}/>
+                        </div>
+                    </div>
+                </div>
+
                 <Link to="/admin/user/create" className="btn btn-primary float-right">Create User</Link>
                 <div className="card-body">
                     <h5 className="card-title">Users({this.state.userCount})</h5>
