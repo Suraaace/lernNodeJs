@@ -79,6 +79,7 @@ export default class ProductIndex extends React.Component{ // exporting and defi
                         <th>Name</th>
                         <th>Description</th>
                         <th>Price</th>
+                        <th>Category</th>
                         <th colSpan={3}>Action</th>
                     </tr>
                     </thead>
@@ -90,6 +91,7 @@ export default class ProductIndex extends React.Component{ // exporting and defi
                                         <td>{product.name}</td>
                                         <td>{product.description}</td>
                                         <td>{product.price}</td>
+                                        <td>{product.category ? product.category.name : ''}</td>
                                         <td> <Link to={'/admin/product/edit/'+ product._id}>Edit</Link></td>
                                         <td> <button type={'button'} onClick={()=>this.handleDelete(product._id)} className={'btn btn-danger'}>Delete</button> </td>
                                     </tr>

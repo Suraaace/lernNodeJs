@@ -3,15 +3,19 @@ const Schema = mongoose.Schema;
 
 
 const productSchema = new Schema({
-    name: {
-        type: String
-    },
-    description: {
-        type: String
-    },
-    price: {
-        type: String
-    }
+        name: {
+            type: String
+        },
+        description: {
+            type: String
+        },
+        price: {
+            type: String
+        },
+        category: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref:'Category'
+        }
     },   
     {
         collection : 'products'

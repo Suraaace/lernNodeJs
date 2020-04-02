@@ -6,7 +6,7 @@ let Category = require('./category.model');
 routes.route('/create').post((req,res) => {
     let obj ={
         name: req.body.name
-    }
+    };
 
     let category = new Category(obj);
 
@@ -21,21 +21,24 @@ routes.route('/create').post((req,res) => {
 
 });
 
-routes.route('/').get((req, res)=> {
-    Category.find({},(err, categories)=>{
-        if(err) return console.error(err);
+routes.route('/').get( async (req, res)=> {
 
-        let response ={
-            success: true,
-            message: "Category List",
-            data: category
-        };
-        res.status(200).json(response);
-    })
+    let categories = await Category.find({})
+        .then(result => {
+            return result;
+        })
+        .catch(err => console.log(err));
+
+    let response = {
+        success: true,
+        message: "Category List",
+        data: categories
+    };
+    res.status(200).json(response);
 });
 
 routes.route('/:id').get((req,res)=>{
-    let id = params.id;
+    let id = req.params.id;
     Category.findById(id,(err, category) =>{
         if(err) return console.error(err);
 
@@ -49,7 +52,7 @@ routes.route('/:id').get((req,res)=>{
 });
 
 routes.route('/update/:id').post((req,res)=>{
-    let id=req.params.id;
+    let id = req.params.id;
     
     Category.findById(id, (err, category)=>{
         category.name=req.body.name;
@@ -60,6 +63,8 @@ routes.route('/update/:id').post((req,res)=>{
                 message: "Category Updated",
                 data: category
             }
+
+            res.status(200).json(response);
         });
     });
 });
@@ -75,6 +80,8 @@ routes.route('/delete/:id').delete((req,res)=>{
             message: "Category Deleted.",
             data: []
         };
+
+        res.status(200).json(response);
     });
 });
 

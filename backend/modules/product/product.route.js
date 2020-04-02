@@ -28,9 +28,10 @@ routes.route('/').get( async (req, res) => {
     let limit = parseInt(req.query.limit);
     let offset = parseInt(req.query.offset);
     
-    let product = await Product.find().skip(offset).limit(limit);
-    // Product.find({},(err, products)=>{
-    //     if (err) return console.error(err);
+    let product = await Product.find()
+        .populate('category')
+        .skip(offset)
+        .limit(limit);
 
         let response={
             success : true,
@@ -69,6 +70,7 @@ routes.route('/update/:id').post((req, res) => {
         product.name = req.body.name;
         product.description = req.body.description;
         product.price = req.body.price;
+        product.category = req.body.category;
 
         product.save().then((product) => {
             let response ={
