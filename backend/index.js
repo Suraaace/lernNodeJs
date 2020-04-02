@@ -25,6 +25,9 @@ app.use('/api/user', userRoutes);
 const productRoutes = require('./modules/product/product.route');
 app.use('/api/product', productRoutes);
 
+const categoryRoutes = require('./modules/category/category.route');
+app.use('/api/category', categoryRoutes);
+
 let port = process.env.PORT;
 app.listen(port);
 
