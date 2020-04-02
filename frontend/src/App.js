@@ -11,8 +11,11 @@ import history from "./helper/history";
 import UserIndex from "./modules/user/UserIndex";
 import OrderIndex from "./modules/order/OrderIndex";
 import ProductIndex from "./modules/product/ProductIndex";
+import CategoryIndex from "./modules/category/CategoryIndex";
 import UserCreate from "./modules/user/UserCreate";
 import ProductCreate from "./modules/product/ProductCreate";
+import CategoryCreate from "./modules/category/CategoryCreate";
+
 import {PublicRoute} from "./PublicRoutes";
 import Alert from "./helper/alert";
 // import Header from "./templates/Header";
@@ -50,7 +53,9 @@ class App extends React.Component {
             <nav className="nav flex-column" style={ {backgroundColor: "#e8e8e8"}} >
               <Link to="/admin/user" className="nav-link">User Management</Link>
               <Link to="/admin/product" className="nav-link">Product Management</Link>
-              <Link to="/order" className="nav-link">Order Management</Link>
+              <Link to="/admin/order" className="nav-link">Order Management</Link>
+              <Link to="/admin/category" className="nav-link">Category Management</Link>
+
             </nav>
             </div>
             {/* Body */}
@@ -70,10 +75,16 @@ class App extends React.Component {
                 <PublicRoute exact path={'/admin/product/create'} component={ProductCreate}/>
                 <PublicRoute exact path={'/admin/product/edit/:id'} component={ProductCreate}/>
 
+                <PublicRoute exact path={'/admin/category'} component={CategoryIndex}/>
+                <PublicRoute exact path={'/admin/category/create'} component={CategoryCreate}/>
+                <PublicRoute exact path={'/admin/category/edit/:id'} component={CategoryCreate}/>
+
+
+
                 {/* <Route exact path="/product/create"> // other way to call route
                   <ProductCreate />
                 </Route> */}
-                <Route exact path="/order">
+                <Route exact path="/admin/order">
                   <OrderIndex />
                 </Route>
               </Switch>
