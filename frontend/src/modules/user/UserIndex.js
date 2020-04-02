@@ -121,6 +121,7 @@ class UserIndex extends React.Component{
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Email</th>
+                                <th>Password</th>
                                 <th>Phone</th>
                                 <th colSpan={2}>Action</th>
                             </tr>
@@ -133,6 +134,7 @@ class UserIndex extends React.Component{
                                            <td>{user.firstName}</td>
                                            <td>{user.lastName}</td>
                                            <td>{user.email}</td>
+                                           <td>{user.password}</td>
                                            <td>{user.phone}</td>
                                            <td><Link to={'/admin/user/edit/' + user._id} className={'btn btn-primary'}>Edit</Link></td>
                                            <td><button type={'button'} onClick={() => this.handleDelete(user._id)} className={'btn btn-danger'}>Delete</button></td>

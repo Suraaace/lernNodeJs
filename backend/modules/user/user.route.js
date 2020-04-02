@@ -9,6 +9,7 @@ routes.route('/create').post((req, res) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
+        password: req.body.password,
         phone: req.body.phone
     }
 
@@ -87,6 +88,7 @@ routes.route('/update/:id').post((req, res) => {
         user.firstName = req.body.firstName;
         user.lastName = req.body.lastName;
         user.email = req.body.email;
+        user.password = req.body.password;
         user.phone = req.body.phone;
 
         user.save().then( (user) => {

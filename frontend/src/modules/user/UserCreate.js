@@ -11,6 +11,7 @@ class UserCreate extends React.Component {
             firstName: "",
             lastName: "",
             email: "",
+            password: "",
             phone: "",
         }
         
@@ -25,6 +26,7 @@ class UserCreate extends React.Component {
                         firstName: response.data.data.firstName,
                         lastName: response.data.data.lastName,
                         email: response.data.data.email,
+                        password: response.data.data.password,
                         phone: response.data.data.phone,
                     });
                 })
@@ -32,21 +34,15 @@ class UserCreate extends React.Component {
         }
     }
 
-    changeFirstNameHandler = (event) => {
-        this.setState({firstName: event.target.value});
-    };
-
-    changeLastNameHandler = (event) => {
-        this.setState({lastName: event.target.value});
-    };
-
-    changeEmailHandler = (event) => {
-        this.setState({email: event.target.value});
-    };
-
-    changePhoneHandler = (event) => {
-        this.setState({phone: event.target.value});
-    };
+    handleChange = (event) => {
+         this.setState({[event.target.name] : event.target.value });
+           
+         // OR 
+        // let name = event.target.name;
+        // let value = event.target.value;
+        // this.setState({[name] : value });
+        
+    }
 
     submitHandler = () => {
         let id = this.props.match.params.id;
@@ -70,19 +66,23 @@ class UserCreate extends React.Component {
                 <form>
                     <div className="form-group">
                         <label htmlFor="firsName ">First Name</label>
-                        <input type="text" className="form-control" placeholder="First Name" value={this.state.firstName} onChange={this.changeFirstNameHandler}/>
+                        <input type="text" className="form-control" placeholder="First Name" name={'firstName'} value={this.state.firstName} onChange={this.handleChange}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="lastName ">Last Name</label>
-                        <input type="text" className="form-control" placeholder="Last Name" value={this.state.lastName} onChange={this.changeLastNameHandler}/>
+                        <input type="text" className="form-control" placeholder="Last Name" name ={'lastName'} value={this.state.lastName} onChange={this.handleChange}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="lastName ">Email</label>
-                        <input type="text" className="form-control" placeholder="Email" value={this.state.email} onChange={this.changeEmailHandler}/>
+                        <input type="text" className="form-control" placeholder="Email" name={'email'} value={this.state.email} onChange={this.handleChange}/>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password ">Password</label>
+                        <input type="password" className="form-control" minlength="8" required placeholder="Password" name={'password'} value={this.state.password} onChange={this.handleChange}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="phoneNumber">Phone Number</label>
-                        <input type="text" className="form-control" placeholder="Phone Number" value={this.state.phone} onChange={this.changePhoneHandler}/>
+                        <input type="text" className="form-control" placeholder="Phone Number" name={'phone'} value={this.state.phone} onChange={this.handleChange}/>
                     </div>
                     <button type="button" className="btn btn-primary" onClick={this.submitHandler}> Save</button>
                 </form>
