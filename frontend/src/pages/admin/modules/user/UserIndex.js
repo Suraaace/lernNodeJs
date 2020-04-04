@@ -1,8 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import axios from "axios";
-import history from "../../helper/history";
-import Alert from "../../helper/alert";
 import ReactPaginate from 'react-paginate';
 
 class UserIndex extends React.Component{

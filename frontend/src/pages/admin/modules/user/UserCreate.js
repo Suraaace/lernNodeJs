@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import history from "../../helper/history";
+import history from "../../../../helper/history";
 
 class UserCreate extends React.Component {
 
@@ -42,7 +42,7 @@ class UserCreate extends React.Component {
         // let value = event.target.value;
         // this.setState({[name] : value });
         
-    }
+    };
 
     submitHandler = () => {
         let id = this.props.match.params.id;
