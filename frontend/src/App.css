@@ -55,6 +55,11 @@
   background: #828384;
 }
 
+.navbar-wrapper-frontend a,
 .navbar-wrapper a {
   color: #ffffff !important;
+}
+
+.navbar-wrapper-frontend {
+  background: #4d8446;
 }
