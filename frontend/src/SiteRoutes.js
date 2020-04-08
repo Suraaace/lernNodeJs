@@ -11,7 +11,7 @@ import {AdminRoutes} from "./Routes/AdminRoutes";
 import {FrontendRoutes} from "./Routes/FrontendRoutes";
 import UserIndex from "./pages/admin/modules/user/UserIndex";
 import UserCreate from "./pages/admin/modules/user/UserCreate";
-import {Home} from "./pages/frontend/modules/Home";
+import Home from "./pages/frontend/modules/Home";
 import {Product} from "./pages/frontend/modules/Product";
 import ProductIndex from "./pages/admin/modules/product/ProductIndex";
 import ProductCreate from "./pages/admin/modules/product/ProductCreate";
@@ -22,6 +22,9 @@ import {Login} from "./pages/frontend/modules/Login";
 import {AdminLoginRoutes} from "./Routes/AdminLoginRoutes";
 import {AdminLogin} from "./pages/admin/modules/login/AdminLogin";
 import {ForgotPassword} from "./pages/admin/modules/login/ForgotPassword";
+import { BlogRoutes } from './Routes/BlogRoutes';
+import {BlogHome} from "./pages/blog/modules/BlogHome";
+import {BlogAboutUs} from "./pages/blog/modules/BlogAboutUs";
 
 export const SiteRoutes = (props) => {
     return (
@@ -57,6 +60,12 @@ export const SiteRoutes = (props) => {
 
 
                {/* <LoginRoutes/>*/}
+
+
+               {/* <BlogRoutes/> */}
+                <BlogRoutes exact path={'/blog'} component={BlogHome} />
+                <BlogRoutes exact path={'/blog/about-us'} component= {BlogAboutUs}/>
+
             </Switch>
         </Router>
     );
