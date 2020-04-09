@@ -1,73 +1,81 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import axios from "axios";
+import {ProductCard} from "./ProductCard";
+import {CategoryCard} from "./CategoryCard";
 
-export default class Home extends React.Component{ // exporting and defing at the same time
-   // export const Home = (props) =>   
-        constructor(props) {
-            super(props);
+export default class Home extends React.Component { // exporting and defing at the same time
+
+    constructor(props) {
+        super(props);
         this.state = {
             pageTitle: 'ProductS',
             products: [],
+            topCategories: [],
             productCount: 0,
         };
-        };
+    };
 
-        componentDidMount() 
-        {
-            this.loadDataFromServer();
-        };
-    
-        loadDataFromServer = ()=>{
-            axios.get('/')
+    componentDidMount() {
+        this.loadProductFromServer();
+        this.loadCategoryFromServer();
+    };
+
+    loadProductFromServer = () => {
+        axios.get(process.env.REACT_APP_API_HOST_URL+'/product')
             .then((response) => {
+
                 let totalData = response.data.count;
-        
                 this.setState({
                     productCount: totalData,
-                    products: response.data
-                    
-                });
-                console.log('Data has been received');
-                
-                })
-            .catch(err => err);
-        };
-    
-        displayProduct = (products) => {
-           // const count =  products.length;
-           // if (!productCount) return null;
-        
-            
-                 return (  
-                    this.state.products.map((product, i) =>{
-                    <div key = {i}>
-                    <div className="card-body" >
-                    <h5 className="card-title">{product.name}</h5>
-                    <h6 className="card-subtitle mb-2 text-muted">{product.price}</h6>
-                    <h6 className="card-subtitle mb-2 text-muted">{product.category ? product.category.name : ''}</h6>
-                    <p className="card-text">{product.description}</p>
-                    </div>
-                </div>
-                    }
-               )
-                
-        
-           ); 
-        }  
+                    products: response.data.data
 
-    
-        render(){
+                });
+
+            })
+            .catch(err => err);
+    };
+
+    loadCategoryFromServer = () => {
+        axios.get(process.env.REACT_APP_API_HOST_URL+'/category')
+            .then((response) => {
+
+                this.setState({
+                    topCategories: response.data.data
+                });
+
+            })
+            .catch(err => err);
+    };
+
+    render() {
         return (
             <div>
-                <h2>{this.state.pageTitle}</h2>
-
-                <div>{this.displayProduct(this.state.products)}</div>
-                
-        
-                
-
+                <h2>Top Category</h2>
+                <div className={'row'}>
+                    {
+                        this.state.topCategories.map((cat, i) => {
+                            return (
+                                <CategoryCard category={cat} key={i}/>
+                            )
+                        })
+                    }
+                </div>
+                <hr/>
+                <h2>Featured Item</h2>
+                <div className={'row'}>
+                    {
+                        this.state.products.map((prod, i) => {
+                            return (
+                                <ProductCard product={prod} key={i}/>
+                            )
+                        })
+                    }
+                </div>
+                <h2>Popular Item</h2>
+                <div className={'row'}>
+                </div>
             </div>
         );
-        };
     };
+};

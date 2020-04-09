@@ -5,3 +5,7 @@ March 24
 npm install -g create-react-app
 start react app => npm start
 git checkout . => it will ignore all current change
+
+Task
+Task1
+=> product model (isFeatured, isPopular)

@@ -8,7 +8,9 @@ export const FrontendRoutes = ({component: Component, ...rest}) => {
     return (
         <div>
             <Header/>
-            <Route {...rest} render={props => (<Component {...props} />)}/>
+            <div className={'container'}>
+                <Route {...rest} render={props => (<Component {...props} />)}/>
+            </div>
             <Footer/>
         </div>
         )
