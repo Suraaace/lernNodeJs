@@ -14,7 +14,8 @@ export default class ProductCreate extends React.Component{
                 name: "",
                 description: "",
                 price: "",
-                category: ""
+                isFeatured: "",
+                isPopular: ""
             },
             categories: []
         }
@@ -29,7 +30,9 @@ export default class ProductCreate extends React.Component{
                        state.product.name = response.data.data.name;
                        state.product.description = response.data.data.description;
                        state.product.price = response.data.data.price;
-
+                      
+                       state.product.isFeatured = response.data.data.isFeatured;
+                       state.product.isPopular = response.data.data.isPopular;
                        return state;
                     });
                 })
@@ -95,6 +98,42 @@ export default class ProductCreate extends React.Component{
                            }
                        </select>
                    </div>
+                    <div className="form-group">
+                        <label htmlFor="isFeatured">Featured</label>
+                        <div className="col-sm-10">
+                            <div className="form-check form-check-inline">
+                                <input className="form-check-input" type="radio" name={"isFeatured"}  value={'yes'} onChange={this.handleChange} defaultChecked
+                                 />
+                                <label className="form-check-label" htmlFor="isFeatured1">Yes</label>
+                            </div>
+                            <div className="form-check form-check-inline">
+                                <input className="form-check-input" type="radio" name={"isFeatured"}  value={'no'} onChange={this.handleChange}/>
+                                <label className="form-check-label" htmlFor="isFeatured2">No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="isPopular">Popular</label>
+                        {/* <div className="col-sm-10">
+                            <div className="form-check form-check-inline">
+                                <input className="form-check-input" type="checkbox" name={"yes"} value={this.state.product.isPopular} onChange={this.handleChange} checked/>
+                                <label className="form-check-label" htmlFor="isFeatured1">Yes</label>
+                            </div>
+                            <div className="form-check form-check-inline">
+                                <input className="form-check-input" type="checkbox" name={"no"}  value={this.state.product.isPopular} onChange={this.handleChange}  />
+                                <label className="form-check-label" htmlFor="isFeatured2">No</label>
+                            </div>
+                        </div> */}
+                        <div className="col-sm-10">
+                        <select name={'isPopular'} defaultChecked= {this.state.product.isPopular} onChange={this.handleChange}>
+                        <option selected value={"yes"}>Yes</option>
+                        <option value={"no"}>No</option>
+                        </select>
+                        </div>
+                   
+
+                    </div>
+
                    <button type="button" className="btn btn-primary" onClick={this.submitHandler}>Save</button>
                </form>
             </div>

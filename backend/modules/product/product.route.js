@@ -8,7 +8,8 @@ routes.route('/create').post((req,res) => {
     let obj = {
         name : req.body.name,
         description : req.body.description,
-        price : req.body.price
+        price : req.body.price,
+        category : req.body.category
     }
 
     let product = new Product(obj);

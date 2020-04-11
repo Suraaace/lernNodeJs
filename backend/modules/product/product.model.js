@@ -15,6 +15,12 @@ const productSchema = new Schema({
         category: {
             type: mongoose.Schema.Types.ObjectId,
             ref:'Category'
+        },
+        isFeatured: {
+            type: String
+        },
+        isPopular: {
+            type: String
         }
     },   
     {
