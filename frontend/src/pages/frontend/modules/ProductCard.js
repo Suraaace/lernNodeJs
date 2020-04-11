@@ -8,7 +8,7 @@ export const ProductCard = props => {
             <div className="card" >
                 <img className="card-img-top" src="https://dummyimage.com/300.png/09f/fff" alt="Card image cap"/>
                 <div className="card-body">
-                    <h5 className="card-title">{product.name}</h5>
+                    <h5 className="card-title"><Link to={'/product/details/'+product._id}>{product.name}</Link></h5>
                     <p className="card-text">{product.description}</p>
                 </div>
                 <ul className="list-group list-group-flush">

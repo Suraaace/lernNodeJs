@@ -13,14 +13,18 @@ const productSchema = new Schema({
             type: String
         },
         category: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref:'Category'
         },
         isFeatured: {
-            type: String
+            type: Number,
+            enum: [0, 1],
+            default: 0
         },
         isPopular: {
-            type: String
+            type: Number,
+            enum: [0, 1],
+            default: 0
         }
     },   
     {

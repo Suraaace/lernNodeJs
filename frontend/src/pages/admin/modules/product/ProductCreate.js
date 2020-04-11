@@ -98,7 +98,7 @@ export default class ProductCreate extends React.Component{
                            }
                        </select>
                    </div>
-                    <div className="form-group">
+                    {/*<div className="form-group">
                         <label htmlFor="isFeatured">Featured</label>
                         <div className="col-sm-10">
                             <div className="form-check form-check-inline">
@@ -111,28 +111,32 @@ export default class ProductCreate extends React.Component{
                                 <label className="form-check-label" htmlFor="isFeatured2">No</label>
                             </div>
                         </div>
-                    </div>
+                    </div>*/}
                     <div className="form-group">
                         <label htmlFor="isPopular">Popular</label>
-                        {/* <div className="col-sm-10">
-                            <div className="form-check form-check-inline">
-                                <input className="form-check-input" type="checkbox" name={"yes"} value={this.state.product.isPopular} onChange={this.handleChange} checked/>
-                                <label className="form-check-label" htmlFor="isFeatured1">Yes</label>
-                            </div>
-                            <div className="form-check form-check-inline">
-                                <input className="form-check-input" type="checkbox" name={"no"}  value={this.state.product.isPopular} onChange={this.handleChange}  />
-                                <label className="form-check-label" htmlFor="isFeatured2">No</label>
-                            </div>
-                        </div> */}
                         <div className="col-sm-10">
-                        <select name={'isPopular'} defaultChecked= {this.state.product.isPopular} onChange={this.handleChange}>
-                        <option selected value={"yes"}>Yes</option>
-                        <option value={"no"}>No</option>
+                        <select name={'isPopular'}
+                                defaultChecked= {this.state.product.isPopular}
+                                className={'form-control'}
+                                onChange={this.handleChange}>
+                            <option value={1}>Yes</option>
+                            <option value={0}>No</option>
                         </select>
                         </div>
-                   
-
                     </div>
+
+                   <div className="form-group">
+                       <label htmlFor="isFeatured">Featured</label>
+                       <div className="col-sm-10">
+                           <select name={'isFeatured'}
+                                   defaultChecked= {this.state.product.isFeatured}
+                                   className={'form-control'}
+                                   onChange={this.handleChange}>
+                               <option value={1}>Yes</option>
+                               <option value={0}>No</option>
+                           </select>
+                       </div>
+                   </div>
 
                    <button type="button" className="btn btn-primary" onClick={this.submitHandler}>Save</button>
                </form>
