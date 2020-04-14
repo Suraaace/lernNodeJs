@@ -19,6 +19,11 @@ export default class ProductIndex extends React.Component{ // exporting and defi
             pageTitle: 'Product Management',
             products: [],
             productCount: 0,
+            search: {
+                name: "",
+                price: "",
+                category: "",
+            }
         }
     }
 
@@ -40,6 +45,8 @@ export default class ProductIndex extends React.Component{ // exporting and defi
                 params: {
                     limit: this.state.limit,
                     offset: this.state.offset,
+                    category: this.state.search.category,
+                    name: this.state.search.name
                 } 
             })
             .then((response) => {
@@ -53,7 +60,21 @@ export default class ProductIndex extends React.Component{ // exporting and defi
                  });
             })
             .catch(err => err);
-        }
+        };
+
+
+        searchHandle = (event) => {
+            let name = event.target.name;
+            let value = event.target.value;
+    
+            this.setState(state=> {
+                state.search[name] = value;
+                return state;
+            }, ()=>{
+                this.loadDataFromServer();
+            })
+        };
+
 
         handlePageClick = data => {
             let selected = data.selected;
@@ -69,6 +90,26 @@ export default class ProductIndex extends React.Component{ // exporting and defi
         return(
             <div>
                 <h2>{this.state.pageTitle}</h2>
+                <div className='row'>
+                    <div className={'col2'}>
+                        <div className={'form-group'}>
+                            <label> Product Name </label>
+                            <input type={'text'} placeholder={'Product Name'}
+                            name={'name'} value={this.state.search.name}
+                            className={'form-control'} onChange={this.searchHandle} />
+                        </div>
+                    </div> 
+                    <div className={'col2'}>
+                        <div className={'form-group'}>  
+                            <label>Product Price</label> 
+                            <input type={'text'} placeholder={'Product Price'}
+                            name={'price'} value={this.state.search.price}
+                            className={'form-control'} onChange={this.searchHandle} />
+                        </div>
+
+                    </div>
+                </div> 
+
                 <Link to="/admin/product/create" className="btn btn-primary float-right">Create Product</Link>
                 <div className="card-body">
                 <h5 className="card-title">Products({this.state.productCount})</h5>
@@ -80,7 +121,9 @@ export default class ProductIndex extends React.Component{ // exporting and defi
                         <th>Description</th>
                         <th>Price</th>
                         <th>Category</th>
-                        <th colSpan={3}>Action</th>
+                        <th>Featured</th>
+                        <th>Popular</th>
+                        <th colSpan={2}>Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -92,8 +135,12 @@ export default class ProductIndex extends React.Component{ // exporting and defi
                                         <td>{product.description}</td>
                                         <td>{product.price}</td>
                                         <td>{product.category ? product.category.name : ''}</td>
+                                        <td>{product.isFeatured === 1 ? 'Yes' : 'No'}</td>
+                                        <td>{product.isPopular === 1 ? 'Yes' : 'No'}</td>
                                         <td> <Link to={'/admin/product/edit/'+ product._id}>Edit</Link></td>
-                                        <td> <button type={'button'} onClick={()=>this.handleDelete(product._id)} className={'btn btn-danger'}>Delete</button> </td>
+                                        <td> <button type={'button'} onClick={()=>this.handleDelete(product._id)} 
+                                            className={'btn btn-danger'}>Delete</button> 
+                                        </td>
                                     </tr>
                                 )
                             })

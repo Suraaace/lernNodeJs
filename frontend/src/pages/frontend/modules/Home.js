@@ -66,14 +66,25 @@ export default class Home extends React.Component { // exporting and defing at t
                 <div className={'row'}>
                     {
                         this.state.products.map((prod, i) => {
-                            return (
-                                <ProductCard product={prod} key={i}/>
-                            )
+                            if(prod.isFeatured === 1) {
+                                return (
+                                    <ProductCard product={prod} key={i}/>
+                                )
+                            }
                         })
                     }
                 </div>
                 <h2>Popular Item</h2>
                 <div className={'row'}>
+                    {
+                        this.state.products.map((prod, i) => {
+                            if(prod.isPopular === 1) {
+                                return (
+                                    <ProductCard product={prod} key={i}/>
+                                )
+                            }
+                        })
+                    }
                 </div>
             </div>
         );

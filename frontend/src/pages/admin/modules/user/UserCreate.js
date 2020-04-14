@@ -66,23 +66,29 @@ class UserCreate extends React.Component {
                 <form>
                     <div className="form-group">
                         <label htmlFor="firsName ">First Name</label>
-                        <input type="text" className="form-control" placeholder="First Name" name={'firstName'} value={this.state.firstName} onChange={this.handleChange}/>
+                        <input type="text" className="form-control" placeholder="First Name" 
+                        name={'firstName'} value={this.state.firstName} onChange={this.handleChange}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="lastName ">Last Name</label>
-                        <input type="text" className="form-control" placeholder="Last Name" name ={'lastName'} value={this.state.lastName} onChange={this.handleChange}/>
+                        <input type="text" className="form-control" placeholder="Last Name" 
+                        name ={'lastName'} value={this.state.lastName} onChange={this.handleChange}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="lastName ">Email</label>
-                        <input type="text" className="form-control" placeholder="Email" name={'email'} value={this.state.email} onChange={this.handleChange}/>
+                        <input type="text" className="form-control" placeholder="Email" 
+                        name={'email'} value={this.state.email} onChange={this.handleChange}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="password ">Password</label>
-                        <input type="password" className="form-control" minlength="8" required placeholder="Password" name={'password'} value={this.state.password} onChange={this.handleChange}/>
+                        <input type="password" className="form-control" minlength="8" 
+                        required placeholder="Password" name={'password'} value={this.state.password}
+                        onChange={this.handleChange}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="phoneNumber">Phone Number</label>
-                        <input type="text" className="form-control" placeholder="Phone Number" name={'phone'} value={this.state.phone} onChange={this.handleChange}/>
+                        <input type="text" className="form-control" placeholder="Phone Number" 
+                        name={'phone'} value={this.state.phone} onChange={this.handleChange}/>
                     </div>
                     <button type="button" className="btn btn-primary" onClick={this.submitHandler}> Save</button>
                 </form>

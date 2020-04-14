@@ -18,6 +18,7 @@ class UserIndex extends React.Component{
             message:"",
             search: {
                 firstName: "",
+                lastName: "",
                 email: ""
             }
         }
@@ -68,27 +69,39 @@ class UserIndex extends React.Component{
         });
     };
 
-    searchFirstName = (event) => {
-        let firstName = event.target.value;
+    // searchFirstName = (event) => {
+    //     let firstName = event.target.value;
 
-        this.setState( state => {
-            state.search.firstName = firstName;
+    //     this.setState( state => {
+    //         state.search.firstName = firstName;
+    //         return state;
+    //     }, () => {
+    //         this.loadDataFromServer();
+    //     });
+    // };
+
+    searchHandle = (event) => {
+        let name = event.target.name;
+        let value =event.target.value;
+
+        this.setState(state=> {
+            state.search[name] = value;
             return state;
-        }, () => {
+        }, ()=>{
             this.loadDataFromServer();
-        });
-    };
+        })
+    }
 
-    searhByEmail = (event) => {
-        let email = event.target.value;
+    // searhByEmail = (event) => {
+    //     let email = event.target.value;
 
-        this.setState( state => {
-            state.search.email = email;
-            return state;
-        }, () => {
-            this.loadDataFromServer();
-        });
-    };
+    //     this.setState( state => {
+    //         state.search.email = email;
+    //         return state;
+    //     }, () => {
+    //         this.loadDataFromServer();
+    //     });
+    // };
 
     render() {
         return(
@@ -98,13 +111,25 @@ class UserIndex extends React.Component{
                     <div className={'col2'}>
                         <div className={'form-group'}>
                             <label>First Name</label>
-                            <input type={'text'} placeholder={'First Name'} className={'form-control'} onChange={this.searchFirstName}/>
+                            <input type={'text'} placeholder={'First Name'} 
+                            name={'firstName'} value={this.state.search.firstName} 
+                            className={'form-control'} onChange={this.searchHandle}/>
+                        </div>
+                    </div>
+                    <div className={'col2'}>
+                        <div className={'form-group'}>
+                            <label>Last Name</label>
+                            <input typ={'text'} placeholder={'Last Name'} 
+                            className={'form-control'} 
+                            name={'lastName'} value={this.state.search.lastName} onChange={this.searchHandle}/>
                         </div>
                     </div>
                     <div className={'col2'}>
                         <div className={'form-group'}>
                             <label>Email</label>
-                            <input type={'text'} placeholder={'Email'} className={'form-control'} onChange={this.searhByEmail}/>
+                            <input type={'text'} placeholder={'Email'} 
+                            className={'form-control'} 
+                            name={'email'} value={this.state.search.email} onChange={this.searchHandle}/>
                         </div>
                     </div>
                 </div>
@@ -134,8 +159,16 @@ class UserIndex extends React.Component{
                                            <td>{user.email}</td>
                                            <td>{user.password}</td>
                                            <td>{user.phone}</td>
-                                           <td><Link to={'/admin/user/edit/' + user._id} className={'btn btn-primary'}>Edit</Link></td>
-                                           <td><button type={'button'} onClick={() => this.handleDelete(user._id)} className={'btn btn-danger'}>Delete</button></td>
+                                           <td><Link to={'/admin/user/edit/' + user._id} 
+                                                    className={'btn btn-primary'}>
+                                                    Edit
+                                                </Link>
+                                            </td>
+                                           <td><button type={'button'} onClick={() => this.handleDelete(user._id)} 
+                                                    className={'btn btn-danger'}>
+                                                    Delete
+                                                </button>
+                                            </td>
                                        </tr>
                                    )
                                })

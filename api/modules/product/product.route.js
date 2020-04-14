@@ -4,43 +4,47 @@ const routes = express.Router();
 
 let Product = require('./product.model');
 
-routes.route('/create').post((req,res) => {
-    let obj = {
-        name : req.body.name,
-        description : req.body.description,
-        price : req.body.price
-    }
-
-    let product = new Product(obj);
-    product.save().then((product) => {
-        let response = {
-            success : true,
-            message : "Product is created successfully.",
-            data : product
-        };
-        res.status(200).json(response);
-    })
-});
-
-routes.route('/').get( async (req, res) => { 
+routes.route('/').get( async (req, res) => {
+    
+    let search = {};
+    if(req.query.search) search = JSON.parse(req.query.search);
+    
+    
     let dataCount = await Product.countDocuments(); // awaits stops the threads untill this line executes.
-        
+
     let limit = parseInt(req.query.limit);
     let offset = parseInt(req.query.offset);
-    
-    let product = await Product.find()
+
+    let filter ={};
+   
+    if(search.name) {
+        console.log("here");
+        filter["name"]={
+            $regex: '.*'+ search.name + '.*',
+            options: 'i'
+        }
+    }
+
+    if(search.price) {
+        filter["price"] ={
+            $regex: '.*' + search.price + '.*',
+            options: 'i'
+        }
+    }
+
+    let product = await Product.find(filter)
         .populate('category')
         .skip(offset)
         .limit(limit);
 
-        let response={
-            success : true,
-            message : "List of Products.",
-            data : product,
-            count : dataCount
-        };
-        res.status(200).json(response);
-   // })
+    let response={
+        success : true,
+        message : "List of Products.",
+        data : product,
+        count : dataCount
+    };
+
+    res.status(200).json(response);
 });
 
 routes.route('/:id').get((req, res)=>{
@@ -59,6 +63,26 @@ routes.route('/:id').get((req, res)=>{
 
 });
 
+routes.route('/create').post((req,res) => {
+    let obj = {
+        name : req.body.name,
+        description : req.body.description,
+        price : req.body.price,
+        category : req.body.category,
+        isFeatured : req.body.isFeatured,
+        isPopular : req.body.isPopular
+    };
+
+    let product = new Product(obj);
+    product.save().then((product) => {
+        let response = {
+            success : true,
+            message : "Product is created successfully.",
+            data : product
+        };
+        res.status(200).json(response);
+    })
+});
 
 routes.route('/update/:id').post((req, res) => {
     
@@ -71,6 +95,8 @@ routes.route('/update/:id').post((req, res) => {
         product.description = req.body.description;
         product.price = req.body.price;
         product.category = req.body.category;
+        product.isFeatured = req.body.isFeatured;
+        product.isPopular = req.body.isPopular;
 
         product.save().then((product) => {
             let response ={
