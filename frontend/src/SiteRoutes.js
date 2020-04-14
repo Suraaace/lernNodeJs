@@ -26,6 +26,8 @@ import { BlogRoutes } from './Routes/BlogRoutes';
 import {BlogHome} from "./pages/blog/modules/BlogHome";
 import {BlogAboutUs} from "./pages/blog/modules/BlogAboutUs";
 import {ProductDetail} from "./pages/frontend/modules/ProductDetail";
+import {CategoryDetail} from "./pages/frontend/modules/CategoryDetail";
+
 
 export const SiteRoutes = (props) => {
     return (

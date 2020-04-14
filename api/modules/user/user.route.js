@@ -29,6 +29,8 @@ routes.route('/create').post((req, res) => {
 routes.route('/').get( async (req, res) => {
 
     let search = JSON.parse(req.query.search);
+    // let search = {};
+    // if(req.query.search) search = JSON.parse(req.query.search);
 
     let dataCount = await User.countDocuments();
 
@@ -42,6 +44,13 @@ routes.route('/').get( async (req, res) => {
             $regex: '.*' + search.firstName + '.*',
             $options: 'i'
         } // Like Search
+    }
+
+    if(search.lastName){
+        filter["lastName"] ={
+            $regex: '.*' + search.lastName +'.*',
+            $options: 'i'
+        }
     }
 
     if(search.email) {

@@ -5,12 +5,34 @@ const routes = express.Router();
 let Product = require('./product.model');
 
 routes.route('/').get( async (req, res) => {
+    
+    let search = {};
+    if(req.query.search) search = JSON.parse(req.query.search);
+    
+    
     let dataCount = await Product.countDocuments(); // awaits stops the threads untill this line executes.
 
     let limit = parseInt(req.query.limit);
     let offset = parseInt(req.query.offset);
 
-    let product = await Product.find()
+    let filter ={};
+   
+    if(search.name) {
+        console.log("here");
+        filter["name"]={
+            $regex: '.*'+ search.name + '.*',
+            options: 'i'
+        }
+    }
+
+    if(search.price) {
+        filter["price"] ={
+            $regex: '.*' + search.price + '.*',
+            options: 'i'
+        }
+    }
+
+    let product = await Product.find(filter)
         .populate('category')
         .skip(offset)
         .limit(limit);
@@ -21,8 +43,8 @@ routes.route('/').get( async (req, res) => {
         data : product,
         count : dataCount
     };
+
     res.status(200).json(response);
-    // })
 });
 
 routes.route('/:id').get((req, res)=>{

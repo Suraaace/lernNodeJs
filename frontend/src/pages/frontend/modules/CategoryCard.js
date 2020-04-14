@@ -1,4 +1,6 @@
 import React from "react";
+import {Link} from "react-router-dom";
+
 
 export const CategoryCard = props => {
     const category = props.category;
@@ -7,7 +9,7 @@ export const CategoryCard = props => {
             <div className="card" >
                 <img className="card-img-top" src="https://dummyimage.com/300.png/09f/fff" alt="Card image cap"/>
                 <div className="card-body">
-                    <h5 className="card-title">{category.name}</h5>
+                    <h5 className="card-title"><Link to={'/category/details/'+category._name}>{category.name}</Link></h5>
                 </div>
             </div>
         </div>

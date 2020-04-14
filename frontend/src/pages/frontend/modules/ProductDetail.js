@@ -43,19 +43,18 @@ export const ProductDetail = props => {
                     </div>
                 </div>
                 <div className={'col-7'}>
-                    <h2>Product Name</h2>
+                    <h2>{product.name}</h2>
                     <p>Magnetic Wireless bluetooth Earphone XT11 music headset Phone Neckband sport Earbuds Earphone with Mic For iPhone Samsung Xiaomi</p>
                     <div>
-                        <h4><span className="badge badge-secondary">Price: $400</span></h4>
+                    <h4><span className="badge badge-secondary">Price: {product.price}</span></h4>
                     </div>
                     <div>
                         <h4>Quantity</h4>
                         <p>5</p>
                     </div>
                     <div>
-                        <h4>Shipping Details</h4>
-                        <p>Magnetic Wireless bluetooth Earphone XT11 music headset Phone Neckband sport Earbuds Earphone with Mic For iPhone Samsung Xiaomi.
-                            Magnetic Wireless bluetooth Earphone XT11 music headset Phone Neckband sport Earbuds Earphone with Mic For iPhone Samsung Xiaomi</p>
+                        <h4>Description</h4>
+                        <p>{product.description}</p>
                     </div>
                     <div className={'row'}>
                         <div className={'col-4'}>
