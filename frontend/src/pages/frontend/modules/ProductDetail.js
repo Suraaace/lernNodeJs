@@ -3,14 +3,14 @@ import axios from "axios";
 import {ProductCard} from "./ProductCard";
 
 export const ProductDetail = props => {
-    const id = props.match.params.id;
+    const itemId = props.match.params.itemId;
 
     const [stop, setStop] = useState("");
     const [product, setProduct] = useState("");
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        axios.get(process.env.REACT_APP_API_HOST_URL+'/product/'+id)
+        axios.get(process.env.REACT_APP_API_HOST_URL+'/product/'+itemId)
             .then((response) => {
                 setProduct(response.data.data);
             })

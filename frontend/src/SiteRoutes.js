@@ -27,6 +27,7 @@ import {BlogHome} from "./pages/blog/modules/BlogHome";
 import {BlogAboutUs} from "./pages/blog/modules/BlogAboutUs";
 import {ProductDetail} from "./pages/frontend/modules/ProductDetail";
 import {CategoryDetail} from "./pages/frontend/modules/CategoryDetail";
+import {ProductListing} from "./pages/frontend/modules/ProductListing";
 
 
 export const SiteRoutes = (props) => {
@@ -59,7 +60,8 @@ export const SiteRoutes = (props) => {
                 {/* frontend routes*/}
                 <FrontendRoutes exact path={'/'} component={Home}/>
                 <FrontendRoutes exact path={'/product'} component={Product}/>
-                <FrontendRoutes exact path={'/product/details/:id'} component={ProductDetail}/>
+                <FrontendRoutes exact path={'/product/details/:itemId'} component={ProductDetail}/>
+                <FrontendRoutes exact path={'/category/details/:itemId'} component={ProductListing}/>
                 <FrontendRoutes exact path={'/login'} component={Login}/>
 
 

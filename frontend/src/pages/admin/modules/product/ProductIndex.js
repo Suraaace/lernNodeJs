@@ -21,7 +21,8 @@ export default class ProductIndex extends React.Component{ // exporting and defi
             productCount: 0,
             search: {
                 name: "",
-                price: ""
+                price: "",
+                category: "",
             }
         }
     }
@@ -44,7 +45,8 @@ export default class ProductIndex extends React.Component{ // exporting and defi
                 params: {
                     limit: this.state.limit,
                     offset: this.state.offset,
-                    search: this.state.search
+                    category: this.state.search.category,
+                    name: this.state.search.name
                 } 
             })
             .then((response) => {
@@ -58,7 +60,7 @@ export default class ProductIndex extends React.Component{ // exporting and defi
                  });
             })
             .catch(err => err);
-        }
+        };
 
 
         searchHandle = (event) => {
@@ -71,7 +73,7 @@ export default class ProductIndex extends React.Component{ // exporting and defi
             }, ()=>{
                 this.loadDataFromServer();
             })
-        }
+        };
 
 
         handlePageClick = data => {
