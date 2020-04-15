@@ -28,11 +28,18 @@ import {BlogAboutUs} from "./pages/blog/modules/BlogAboutUs";
 import {ProductDetail} from "./pages/frontend/modules/ProductDetail";
 import {CategoryDetail} from "./pages/frontend/modules/CategoryDetail";
 import {ProductListing} from "./pages/frontend/modules/ProductListing";
-
+import {Cart} from "./pages/frontend/modules/Cart";
+import {GlobalStoreProvider, GlobalStore} from 'global-store-hook';
 
 export const SiteRoutes = (props) => {
+    const init = {
+        cart: [],
+        user: {}
+    };
+
     return (
-        <Router history={history}>
+        <GlobalStoreProvider initValues={init}>
+            <Router history={history}>
             <Switch>
                 {/* admin routes*/}
                 <AdminLoginRoutes exact path={'/admin/login'} component={AdminLogin}/>
@@ -62,6 +69,7 @@ export const SiteRoutes = (props) => {
                 <FrontendRoutes exact path={'/product'} component={Product}/>
                 <FrontendRoutes exact path={'/product/details/:itemId'} component={ProductDetail}/>
                 <FrontendRoutes exact path={'/category/details/:itemId'} component={ProductListing}/>
+                <FrontendRoutes exact path={'/cart'} component={Cart}/>
                 <FrontendRoutes exact path={'/login'} component={Login}/>
 
 
@@ -74,5 +82,6 @@ export const SiteRoutes = (props) => {
 
             </Switch>
         </Router>
+        </GlobalStoreProvider>
     );
 };

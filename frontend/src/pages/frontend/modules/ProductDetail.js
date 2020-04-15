@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {ProductCard} from "./ProductCard";
+import {GlobalStore} from "global-store-hook";
 
 export const ProductDetail = props => {
     const itemId = props.match.params.itemId;
-
     const [stop, setStop] = useState("");
-    const [product, setProduct] = useState("");
+    const [product, setProduct] = useState({});
     const [products, setProducts] = useState([]);
+    const [addToCart, setAddToCart] = useState("Add To Cart");
+    const [isDisabled, setIsDisabled] = useState(false);
+
+    const store = GlobalStore();
 
     useEffect(() => {
         axios.get(process.env.REACT_APP_API_HOST_URL+'/product/'+itemId)
@@ -22,6 +26,14 @@ export const ProductDetail = props => {
             })
             .catch(err => err);
     }, [stop]);
+
+    const handleCart = () => {
+        setAddToCart('Added To Cart');
+        setIsDisabled(true);
+        const previousItems = store.get('cart');
+        const cartItems = [...previousItems, product];
+        store.set('cart', cartItems);
+    };
 
     return (
         <div style={{marginTop: 10}}>
@@ -58,7 +70,11 @@ export const ProductDetail = props => {
                     </div>
                     <div className={'row'}>
                         <div className={'col-4'}>
-                            <button type={'button'} className={'btn btn-primary btn-block'}>Add To cart</button>
+                            <button
+                                type={'button'}
+                                onClick={() => handleCart()}
+                                disabled={isDisabled}
+                                className={'btn btn-primary btn-block'}>{addToCart}</button>
                         </div>
                         <div className={'col-4'}>
                             <button type={'button'} className={'btn btn-danger btn-block'}>Buy Now</button>

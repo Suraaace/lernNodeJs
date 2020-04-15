@@ -1,7 +1,9 @@
 import React from 'react';
 import {Link} from "react-router-dom";
+import {GlobalStore} from "global-store-hook";
 
 export const Header = (props) => {
+    const store = GlobalStore();
     return (
         <nav className="navbar navbar-expand-lg navbar-light navbar-wrapper-frontend">
             <Link to={''}>Frontend Header</Link>
@@ -16,6 +18,9 @@ export const Header = (props) => {
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to={'/product'}>Product</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to={'/cart'}>Cart({store.get('cart').length})</Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to={'/login'}>Login</Link>
