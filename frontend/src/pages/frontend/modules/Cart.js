@@ -10,6 +10,10 @@ export const Cart = (props) => {
         setCartItems(store.get('cart'));
     }, [stop]);
 
+    const handleRemove = (id) => {
+
+    }
+
     return (
         <div>
             {cartItems.length === 0 &&
@@ -19,16 +23,18 @@ export const Cart = (props) => {
 
             <div>
                 <table className={'table'}>
-                {
-                    cartItems.map((item, i) => {
-                        return(
-                            <tr>
-                                <td>{item.name}</td>
-                                <td>{item.price}</td>
-                            </tr>
-                        )
-                    })
-                }
+                    {
+                        cartItems.map((item, i) => {
+                            return(
+                                <tr>
+                                    <td>{item.name}</td>
+                                    <td>{item.price}</td>
+                                    <button type="button" className="btn btn-danger" 
+                                    onClick = {() => handleRemove(item.id)} > Remove </button> 
+                                </tr>
+                            )
+                        })
+                    }
                 </table>
             </div>
         </div>
