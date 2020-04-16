@@ -32,8 +32,16 @@ import {Cart} from "./pages/frontend/modules/Cart";
 import {GlobalStoreProvider, GlobalStore} from 'global-store-hook';
 
 export const SiteRoutes = (props) => {
+
+    let cart = localStorage.getItem('cart');
+    if(!cart) {
+        cart = [];
+    } else {
+        cart = JSON.parse(cart);
+    }
+
     const init = {
-        cart: [],
+        cart: cart,
         user: {}
     };
 
