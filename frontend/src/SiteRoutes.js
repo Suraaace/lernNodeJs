@@ -18,6 +18,7 @@ import ProductCreate from "./pages/admin/modules/product/ProductCreate";
 import CategoryIndex from "./pages/admin/modules/category/CategoryIndex";
 import CategoryCreate from "./pages/admin/modules/category/CategoryCreate";
 import OrderIndex from "./pages/admin/modules/order/OrderIndex";
+import OrderCreate from "./pages/admin/modules/order/OrderCreate";
 import {Login} from "./pages/frontend/modules/Login";
 import {AdminLoginRoutes} from "./Routes/AdminLoginRoutes";
 import {AdminLogin} from "./pages/admin/modules/login/AdminLogin";
@@ -71,6 +72,8 @@ export const SiteRoutes = (props) => {
 
                 {/* Order Management */}
                 <AdminRoutes exact path={'/admin/order'} component={OrderIndex}/>
+                <AdminRoutes exact path={'/admin/order/create'} component={OrderCreate}/>
+
 
                 {/* frontend routes*/}
                 <FrontendRoutes exact path={'/'} component={Home}/>

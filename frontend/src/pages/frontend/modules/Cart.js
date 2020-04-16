@@ -1,5 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {GlobalStore} from "global-store-hook";
+import axios from "axios";
+import history from "../../../helper/history";
+
+
 
 export const Cart = (props) => {
     //const [cartItems, setCartItems] = useState([]);
@@ -18,7 +22,35 @@ export const Cart = (props) => {
         store.set('cart', newItems);
         localStorage.setItem('cart', JSON.stringify(newItems));
     };
+
     const placeOrder= () => {
+
+       const orderObj ={
+           id : JSON.stringify(cartItems.productId),
+           userId : "1",
+           status: "order"
+       };
+
+        axios.post(process.env.REACT_APP_API_HOST_URL+'/order/create', orderObj)
+            .then ((response) => {
+                console.log(orderObj);
+                history.push('/admin/order');
+            })
+    }
+
+
+        // let id = this.props.match.params.id;
+        // if(id) {
+        //     axios.post(process.env.REACT_APP_API_HOST_URL+'/user/update/'+id, this.state)
+        //         .then((response) => {
+        //             history.push('/admin/user');
+        //         });
+        // } else {
+        //     axios.post(process.env.REACT_APP_API_HOST_URL+'/user/create', this.state)
+        //         .then((response) => {
+        //             history.push('/admin/user');
+        //         });
+        // }
       //API Call to save it in database
       //table structure => productId, userId, orderStatus
 
@@ -27,7 +59,7 @@ export const Cart = (props) => {
       //Next step
       // admin panel order management
       //frontend Account => my orders
-    };
+   
     const totalPrice = cartItems.reduce((accum,item) => parseInt(accum) + parseInt(item.price), 0);
 
     return (
