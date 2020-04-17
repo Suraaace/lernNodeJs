@@ -10,7 +10,10 @@ const orderSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    statu: {
+    status: {
         type: String
     }
-})
+});
+
+const Order = mongoose.model('Order', orderSchema);
+module.exports = Order;

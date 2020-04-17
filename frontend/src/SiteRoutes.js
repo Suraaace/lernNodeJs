@@ -43,7 +43,10 @@ export const SiteRoutes = (props) => {
 
     const init = {
         cart: cart,
-        user: {}
+        user: {
+            _id: "5e78c54d79771f735e168589",
+            name: "Kiran Mulmi"
+        }
     };
 
     return (

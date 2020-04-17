@@ -6,10 +6,11 @@ import history from "../../../helper/history";
 
 
 export const Cart = (props) => {
-    //const [cartItems, setCartItems] = useState([]);
+    const [placeOrderText, setPlaceOrderText] = useState('Place Order');
 
     const store = GlobalStore();
     const cartItems = store.get('cart');
+    const user = store.get('user');
     //const [stop, setStop] = useState(false);
     // useEffect(() => {
     //     //setStop(true);
@@ -25,18 +26,24 @@ export const Cart = (props) => {
 
     const placeOrder= () => {
 
-       const orderObj ={
-           id : JSON.stringify(cartItems.productId),
-           userId : "1",
-           status: "order"
-       };
+        for (let itm of cartItems) {
 
-        axios.post(process.env.REACT_APP_API_HOST_URL+'/order/create', orderObj)
-            .then ((response) => {
-                console.log(orderObj);
-                history.push('/admin/order');
-            })
-    }
+            let orderObj = {
+                id : itm._id,
+                userId : user.id,
+                status: "pending"
+            };
+
+            axios.post(process.env.REACT_APP_API_HOST_URL+'/order/create', orderObj)
+                .then ((response) => {
+                    console.log(orderObj);
+
+                })
+        }
+        store.set('cart', []);
+        localStorage.setItem('cart', "");
+        setPlaceOrderText('Order Placed Success');
+    };
 
 
         // let id = this.props.match.params.id;
@@ -94,7 +101,7 @@ export const Cart = (props) => {
                     }
                     </tbody>
                 </table>
-                <button type={'button'} className={'btn btn-primary'} onClick={() => placeOrder()}>{'Place Order'}</button>
+                <button type={'button'} className={'btn btn-primary'} onClick={() => placeOrder()}>{placeOrderText}</button>
             </div>
         </div>
     );

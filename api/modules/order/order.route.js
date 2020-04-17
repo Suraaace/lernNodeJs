@@ -3,11 +3,11 @@ const routes = express.Router();
 
 let Order = require('./order.model');
 
-routes.route('/').get((req, res) => {
+routes.route('/').get( async (req, res) => {
 
     let dataCount = await Order.countDocuments();
 
-    let order = await Order.find();
+    let order = await Order.find({});
 
     let response = {
          success: true,
@@ -23,7 +23,7 @@ routes.route('/create').post((req, res) => {
         productId: req.body.productId,
         userId: req.body.userId,
         status: req.body.status
-    }
+    };
 
     let order = new Order(obj);
 
