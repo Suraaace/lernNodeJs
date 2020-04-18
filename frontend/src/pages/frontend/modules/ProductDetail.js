@@ -33,6 +33,7 @@ export const ProductDetail = props => {
         const previousItems = store.get('cart');
         const cartItems = [...previousItems, product];
         store.set('cart', cartItems);
+        localStorage.setItem('cart', JSON.stringify(cartItems));
     };
 
     return (

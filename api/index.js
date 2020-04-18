@@ -28,6 +28,9 @@ app.use('/api/product', productRoutes);
 const categoryRoutes = require('./modules/category/category.route');
 app.use('/api/category', categoryRoutes);
 
+const orderRoutes = require('./modules/order/order.route');
+app.use('/api/order', orderRoutes);
+
 let port = process.env.PORT;
 app.listen(port);
 

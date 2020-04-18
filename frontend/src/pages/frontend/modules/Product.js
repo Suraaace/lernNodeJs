@@ -1,7 +1,32 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import Axios from 'axios';
+import {ProductCard} from "./ProductCard";
 
 export const Product = (props) => {
+    const [stop,setStop] = useState("");
+    const [products,setProducts] = useState([]);
+
+    
+    useEffect(()=>{
+        Axios.get(process.env.REACT_APP_API_HOST_URL+'/product/')
+            .then((response) =>{
+                setProducts(response.data.data);
+            })
+            .catch(err => err);
+    }, [stop]);
+
     return (
-        <div>I am product detail</div>
+        <div>
+            <div className={'row'} >
+                {
+                    products.map((product, i) => {
+                        return (
+
+                            <ProductCard product={product} key={i}/>
+                        )
+                    })
+                }
+            </div>
+        </div>
     );
 };

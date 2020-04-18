@@ -18,6 +18,7 @@ import ProductCreate from "./pages/admin/modules/product/ProductCreate";
 import CategoryIndex from "./pages/admin/modules/category/CategoryIndex";
 import CategoryCreate from "./pages/admin/modules/category/CategoryCreate";
 import OrderIndex from "./pages/admin/modules/order/OrderIndex";
+import OrderCreate from "./pages/admin/modules/order/OrderCreate";
 import {Login} from "./pages/frontend/modules/Login";
 import {AdminLoginRoutes} from "./Routes/AdminLoginRoutes";
 import {AdminLogin} from "./pages/admin/modules/login/AdminLogin";
@@ -32,9 +33,20 @@ import {Cart} from "./pages/frontend/modules/Cart";
 import {GlobalStoreProvider, GlobalStore} from 'global-store-hook';
 
 export const SiteRoutes = (props) => {
+
+    let cart = localStorage.getItem('cart');
+    if(!cart) {
+        cart = [];
+    } else {
+        cart = JSON.parse(cart);
+    }
+
     const init = {
-        cart: [],
-        user: {}
+        cart: cart,
+        user: {
+            _id: "5e78c54d79771f735e168589",
+            name: "Kiran Mulmi"
+        }
     };
 
     return (
@@ -63,6 +75,8 @@ export const SiteRoutes = (props) => {
 
                 {/* Order Management */}
                 <AdminRoutes exact path={'/admin/order'} component={OrderIndex}/>
+                <AdminRoutes exact path={'/admin/order/create'} component={OrderCreate}/>
+
 
                 {/* frontend routes*/}
                 <FrontendRoutes exact path={'/'} component={Home}/>
