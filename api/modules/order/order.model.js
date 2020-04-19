@@ -6,6 +6,10 @@ const orderSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Product'
     },
+    productName:{
+        type: Schema.Types.ObjectId,
+        ref: 'Product'
+    },
     userId: {
         type: Schema.Types.ObjectId,
         ref: 'User'

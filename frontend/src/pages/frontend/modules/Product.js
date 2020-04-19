@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import Axios from 'axios';
+import axios from 'axios';
 import {ProductCard} from "./ProductCard";
 
 export const Product = (props) => {
@@ -8,7 +8,7 @@ export const Product = (props) => {
 
     
     useEffect(()=>{
-        Axios.get(process.env.REACT_APP_API_HOST_URL+'/product/')
+        axios.get(process.env.REACT_APP_API_HOST_URL+'/product/')
             .then((response) =>{
                 setProducts(response.data.data);
             })

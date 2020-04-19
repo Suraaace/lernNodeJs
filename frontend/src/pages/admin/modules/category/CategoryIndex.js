@@ -82,9 +82,9 @@ export default class CategoryIndex extends React.Component {
                         )
                     })
                     }
-                    </tbody>
-                    </table>
-                    </div>
+                </tbody>
+                </table>
+                </div>
                    
                 </div>    
                 

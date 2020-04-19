@@ -30,6 +30,7 @@ export const Cart = (props) => {
 
             let orderObj = {
                 id : itm._id,
+                // name : itm.name,
                 userId : user.id,
                 status: "pending"
             };
