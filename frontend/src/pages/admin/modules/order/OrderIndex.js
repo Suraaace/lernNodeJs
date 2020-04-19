@@ -46,8 +46,7 @@ export default class OrderIndex extends React.Component{
                 <thead>
                     <tr>
                         <th>Product Name</th>
-                        {/* <th>Name</th> */}
-                        <th>User ID</th>
+                        <th>Order By</th>
                         <th>Status</th>
                     </tr>   
                 </thead>
@@ -56,9 +55,8 @@ export default class OrderIndex extends React.Component{
                         this.state.orders.map((order, i)=>{
                             return(
                                 <tr key = {i}>
-                                    <td>{order._id}</td>   
-                                    {/* <td>{order.name}</td>                                 */}
-                                   <td>{order.userId}</td>
+                                    <td>{order.product ? order.product.name : ''}</td>
+                                   <td>{order.user ? (order.user.firstName + " "+ order.user.lastName ) : '' }</td>
                                     <td>{order.status}</td>
                                 </tr>
                             )

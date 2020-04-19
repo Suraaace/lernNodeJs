@@ -7,7 +7,14 @@ routes.route('/').get( async (req, res) => {
 
     let dataCount = await Order.countDocuments();
 
-    let order = await Order.find({});
+    let filter = {};
+    if(req.query.user) {
+        filter['user'] = req.query.user;
+    }
+
+    let order = await Order.find(filter)
+        .populate('user')
+        .populate('product');
 
     let response = {
          success: true,
@@ -20,8 +27,8 @@ routes.route('/').get( async (req, res) => {
 
 routes.route('/create').post((req, res) => {
     let obj ={
-        productId: req.body.productId,
-        userId: req.body.userId,
+        product: req.body.product,
+        user: req.body.user,
         status: req.body.status
     };
 

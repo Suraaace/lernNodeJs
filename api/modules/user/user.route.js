@@ -11,7 +11,7 @@ routes.route('/create').post((req, res) => {
         email: req.body.email,
         password: req.body.password,
         phone: req.body.phone
-    }
+    };
 
     let user = new User(obj);
 
@@ -75,7 +75,8 @@ routes.route('/').get( async (req, res) => {
 routes.route('/:id').get((req, res) => {
     let id = req.params.id;
 
-    User.findById(id, (err, user) => {
+    //User.findById(id, (err, user) => {
+    User.findOne({_id: id}, (err, user) => {
         if (err) return console.error(err);
         let response = {
             success: true,
