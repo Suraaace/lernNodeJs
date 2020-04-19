@@ -46,7 +46,7 @@ export default class ProductIndex extends React.Component{ // exporting and defi
                 limit: this.state.limit,
                 offset: this.state.offset,
                 category: this.state.search.category,
-                name: this.state.search.name
+                search: this.state.search
             } 
         })
         .then((response) => {
@@ -90,7 +90,7 @@ export default class ProductIndex extends React.Component{ // exporting and defi
         return(
             <div>
                 <h2>{this.state.pageTitle}</h2>
-                <div className='row'>
+                <div className={'row'}>
                     <div className={'col2'}>
                         <div className={'form-group'}>
                             <label> Product Name </label>

@@ -18,17 +18,16 @@ routes.route('/').get( async (req, res) => {
     let filter ={};
    
     if(search.name) {
-        console.log("here");
         filter["name"]={
             $regex: '.*'+ search.name + '.*',
-            options: 'i'
+            $options: 'i'
         }
     }
 
     if(search.price) {
         filter["price"] ={
             $regex: '.*' + search.price + '.*',
-            options: 'i'
+            $options: 'i'
         }
     }
 
