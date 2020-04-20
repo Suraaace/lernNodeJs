@@ -27,70 +27,70 @@ export default class ProductIndex extends React.Component{ // exporting and defi
         }
     }
 
-        componentDidMount() {
-            this.loadDataFromServer();
-        }
+    componentDidMount() {
+        this.loadDataFromServer();
+    }
 
-        handleDelete = (id) => {
-            axios.delete(process.env.REACT_APP_API_HOST_URL+'/product/delete/'+id)
-                .then((response) => {
-                   this.loadDataFromServer();
-                })
-                .catch(err => err);
-        };
-
-        loadDataFromServer = ()=>{
-            // API call to fetch list of product in Nodejs
-            axios.get(process.env.REACT_APP_API_HOST_URL+'/product/',{
-                params: {
-                    limit: this.state.limit,
-                    offset: this.state.offset,
-                    category: this.state.search.category,
-                    name: this.state.search.name
-                } 
-            })
+    handleDelete = (id) => {
+        axios.delete(process.env.REACT_APP_API_HOST_URL+'/product/delete/'+id)
             .then((response) => {
-                let totalData = response.data.count;
-
-                this.setState(state => {
-                    state.products = response.data.data;
-                    state.productCount = totalData;
-                    state.pageCount = Math.ceil(totalData/this.state.limit);
-                    return state;  // returns back the value 
-                 });
+                this.loadDataFromServer();
             })
             .catch(err => err);
-        };
+    };
+
+    loadDataFromServer = ()=>{
+        // API call to fetch list of product in Nodejs
+        axios.get(process.env.REACT_APP_API_HOST_URL+'/product/',{
+            params: {
+                limit: this.state.limit,
+                offset: this.state.offset,
+                category: this.state.search.category,
+                search: this.state.search
+            } 
+        })
+        .then((response) => {
+            let totalData = response.data.count;
+
+            this.setState(state => {
+                state.products = response.data.data;
+                state.productCount = totalData;
+                state.pageCount = Math.ceil(totalData/this.state.limit);
+                return state;  // returns back the value 
+                });
+        })
+        .catch(err => err);
+    };
 
 
-        searchHandle = (event) => {
-            let name = event.target.name;
-            let value = event.target.value;
-    
-            this.setState(state=> {
-                state.search[name] = value;
-                return state;
-            }, ()=>{
-                this.loadDataFromServer();
-            })
-        };
+    searchHandle = (event) => {
+        let name = event.target.name;
+        let value = event.target.value;
+
+        this.setState(state=> {
+            state.search[name] = value;
+            return state;
+        }, ()=>{
+            this.loadDataFromServer();
+        })
+    };
 
 
-        handlePageClick = data => {
-            let selected = data.selected;
-            let offset = Math.ceil(selected * this.state.limit);
-    
-            this.setState({ offset: offset }, () => {
-                this.loadDataFromServer();
-            });
-        };
+    handlePageClick = data => {
+        let selected = data.selected;
+        let offset = Math.ceil(selected * this.state.limit);
+
+        this.setState({ offset: offset }, () => {
+            this.loadDataFromServer();
+        });
+    };
 
 
     render() {
         return(
             <div>
                 <h2>{this.state.pageTitle}</h2>
-                <div className='row'>
+                <div className={'row'}>
                     <div className={'col2'}>
                         <div className={'form-group'}>
                             <label> Product Name </label>
@@ -149,23 +149,23 @@ export default class ProductIndex extends React.Component{ // exporting and defi
                 </table>
                 </div>
                 <ReactPaginate
-                        previousLabel={'previous'}
-                        nextLabel={'next'}
-                        breakLabel={'...'}
-                        breakClassName={'break-me'}
-                        pageCount={this.state.pageCount}
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        onPageChange={this.handlePageClick}
-                        containerClassName={'pagination'}
-                        subContainerClassName={'pages pagination'}
-                        pageClassName={'page-item'}
-                        previousClassName={'page-item'}
-                        nextClassName={'page-item'}
-                        pageLinkClassName={'page-link'}
-                        previousLinkClassName={'page-link'}
-                        nextLinkClassName={'page-link'}
-                        activeClassName={'active'}
+                    previousLabel={'previous'}
+                    nextLabel={'next'}
+                    breakLabel={'...'}
+                    breakClassName={'break-me'}
+                    pageCount={this.state.pageCount}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={this.handlePageClick}
+                    containerClassName={'pagination'}
+                    subContainerClassName={'pages pagination'}
+                    pageClassName={'page-item'}
+                    previousClassName={'page-item'}
+                    nextClassName={'page-item'}
+                    pageLinkClassName={'page-link'}
+                    previousLinkClassName={'page-link'}
+                    nextLinkClassName={'page-link'}
+                    activeClassName={'active'}
                 />
             </div>
         </div>

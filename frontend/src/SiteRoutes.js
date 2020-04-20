@@ -30,6 +30,8 @@ import {ProductDetail} from "./pages/frontend/modules/ProductDetail";
 import {CategoryDetail} from "./pages/frontend/modules/CategoryDetail";
 import {ProductListing} from "./pages/frontend/modules/ProductListing";
 import {Cart} from "./pages/frontend/modules/Cart";
+import {Account} from "./pages/frontend/modules/Account";
+
 import {GlobalStoreProvider, GlobalStore} from 'global-store-hook';
 
 export const SiteRoutes = (props) => {
@@ -85,6 +87,7 @@ export const SiteRoutes = (props) => {
                 <FrontendRoutes exact path={'/category/details/:itemId'} component={ProductListing}/>
                 <FrontendRoutes exact path={'/cart'} component={Cart}/>
                 <FrontendRoutes exact path={'/login'} component={Login}/>
+                <FrontendRoutes exact path={'/account'} component={Account}/>
 
 
                {/* <LoginRoutes/>*/}

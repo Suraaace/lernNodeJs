@@ -1,13 +1,46 @@
 const express = require("express");
 const routes = express.Router();
-
+const authMiddleware = require("../../middleware/auth.middleware");
 let Order = require('./order.model');
 
-routes.route('/').get( async (req, res) => {
+//routes.route('/').get( async (req, res) => {
+routes.get('/', authMiddleware, async (req, res) => {
+    let search = {};
+    if (req.query.search)  search = JSON.parse(req.query.search);
 
     let dataCount = await Order.countDocuments();
 
-    let order = await Order.find({});
+    let limit = parseInt(req.query.limit);
+    let offset = parseInt(req.query.offset);
+
+
+    let filter = {};
+    // if(req.query.user) {
+    //     filter['user'] = req.query.user;
+    // }
+
+
+    if(search.product) {
+        filter["product"] = {
+            $regex: '.*' + search.product + '.*',
+            $options: 'i'
+        }
+    }
+
+    if(search.user) {
+        filter["user"] = {
+            $regex : '.*' + search.user + '.*',
+            $options: 'i'
+        }
+    }
+
+    
+
+    let order = await Order.find(filter)
+        .populate('user')  // shows the all the obejct data ie user data
+        .populate('product')
+        .skip(offset)
+        .limit(limit);
 
     let response = {
          success: true,
@@ -20,8 +53,8 @@ routes.route('/').get( async (req, res) => {
 
 routes.route('/create').post((req, res) => {
     let obj ={
-        productId: req.body.productId,
-        userId: req.body.userId,
+        product: req.body.product,
+        user: req.body.user,
         status: req.body.status
     };
 

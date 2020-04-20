@@ -2,6 +2,7 @@ const express = require('express');
 const routes = express.Router();
 var randomstring = require("randomstring");
 let User = require('./user.model');
+const authMiddleware = require("../../middleware/auth.middleware");
 
 routes.route('/create').post((req, res) => {
 
@@ -11,7 +12,7 @@ routes.route('/create').post((req, res) => {
         email: req.body.email,
         password: req.body.password,
         phone: req.body.phone
-    }
+    };
 
     let user = new User(obj);
 
@@ -26,8 +27,8 @@ routes.route('/create').post((req, res) => {
 
 });
 
-routes.route('/').get( async (req, res) => {
-
+//routes.route('/').get( async (req, res) => {
+routes.get('/', authMiddleware, async (req, res) => {
     let search = JSON.parse(req.query.search);
     // let search = {};
     // if(req.query.search) search = JSON.parse(req.query.search);
@@ -75,7 +76,8 @@ routes.route('/').get( async (req, res) => {
 routes.route('/:id').get((req, res) => {
     let id = req.params.id;
 
-    User.findById(id, (err, user) => {
+    //User.findById(id, (err, user) => {
+    User.findOne({_id: id}, (err, user) => {
         if (err) return console.error(err);
         let response = {
             success: true,
