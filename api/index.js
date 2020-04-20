@@ -19,6 +19,9 @@ app.use(bodyParser.urlencoded({
 require('./DB');
 
 // Routes
+const authRoutes = require('./modules/auth/auth.route');
+app.use('/api/auth', authRoutes);
+
 const userRoutes = require('./modules/user/user.route');
 app.use('/api/user', userRoutes);
 

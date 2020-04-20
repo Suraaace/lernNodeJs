@@ -36,15 +36,20 @@ userSchema.pre('save', async function(next) {
 });
 
 // Authentication Related
-userSchema.method.generateAuthToken = async () => {
+//for model
+userSchema.methods.generateAuthToken = async function() {
+
     const user = this;
-    let token = jwt.sign({ _id: user._id }, 'kiran123');
+    let token = jwt.sign({ _id: user._id }, process.env.JWT_KEY);
     user.token = token;
     await user.save();
+
     return token;
 };
 
-userSchema.static.verifyCredentials = async (email, password) => {
+//for schema
+userSchema.statics.verifyCredentials = async (email, password) => {
+
     const user = await User.findOne({email: email});
     if(!user) {
         throw new Error({error: "Invalid credentials"});

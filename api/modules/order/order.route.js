@@ -1,10 +1,10 @@
 const express = require("express");
 const routes = express.Router();
-
+const authMiddleware = require("../../middleware/auth.middleware");
 let Order = require('./order.model');
 
-routes.route('/').get( async (req, res) => {
-
+//routes.route('/').get( async (req, res) => {
+routes.get('/', authMiddleware, async (req, res) => {
     let search = {};
     if (req.query.search)  search = JSON.parse(req.query.search);
 
