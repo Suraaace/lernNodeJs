@@ -5,7 +5,7 @@ import {GlobalStore} from "global-store-hook";
 
 export const ProductDetail = props => {
     const itemId = props.match.params.itemId;
-    const [stop, setStop] = useState("");
+    // const [stop, setStop] = useState("");
     const [product, setProduct] = useState({});
     const [products, setProducts] = useState([]);
     const [addToCart, setAddToCart] = useState("Add To Cart");
@@ -25,7 +25,7 @@ export const ProductDetail = props => {
                 setProducts(response.data.data);
             })
             .catch(err => err);
-    }, [stop]);
+    }, []);
 
     const handleCart = () => {
         setAddToCart('Added To Cart');
