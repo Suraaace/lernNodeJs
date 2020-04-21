@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import ReactPaginate from 'react-paginate';
+import {authToken} from "../../../../helper/authorization";
 
 class UserIndex extends React.Component{
 
@@ -40,11 +41,13 @@ class UserIndex extends React.Component{
 
         // Get All data from API and update the state
         axios.get(process.env.REACT_APP_API_HOST_URL+'/user/',  {
+            headers: authToken(),
             params: {
                 limit: this.state.limit,
                 offset: this.state.offset,
                 search: this.state.search
-            }})
+            }
+            })
             .then((response) => {
 
                 let totalData = response.data.count;

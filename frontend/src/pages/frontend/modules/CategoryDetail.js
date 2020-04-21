@@ -4,7 +4,7 @@ import {ProductCard} from "./ProductCard";
 
 
 
-export default class CategoryDetail extends React.Component {
+export class CategoryDetail extends React.Component {
 
 
     
