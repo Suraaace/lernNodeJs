@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import axios from "axios";
 import history from "../../../../helper/history";
 import ReactPaginate from 'react-paginate';
+import {authToken} from "../../../../helper/authorization";
 
 
 
@@ -42,12 +43,13 @@ export default class ProductIndex extends React.Component{ // exporting and defi
     loadDataFromServer = ()=>{
         // API call to fetch list of product in Nodejs
         axios.get(process.env.REACT_APP_API_HOST_URL+'/product/',{
+            headers: authToken(),
             params: {
                 limit: this.state.limit,
                 offset: this.state.offset,
                 category: this.state.search.category,
                 search: this.state.search
-            } 
+            }
         })
         .then((response) => {
             let totalData = response.data.count;

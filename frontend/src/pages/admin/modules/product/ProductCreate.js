@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import history from "../../../../helper/history";
 import Select from "react-dropdown-select";
+import {authToken} from "../../../../helper/authorization";
 
 
 export default class ProductCreate extends React.Component{
@@ -29,7 +30,9 @@ export default class ProductCreate extends React.Component{
     componentDidMount() {
         let id = this.props.match.params.id;
         if(id) {
-            axios.get(process.env.REACT_APP_API_HOST_URL+'/product/'+id)
+            axios.get(process.env.REACT_APP_API_HOST_URL+'/product/'+id, {
+                headers: authToken()
+            })
                 .then((response) => {
                     this.setState(state => {
 
@@ -47,7 +50,9 @@ export default class ProductCreate extends React.Component{
                 .catch(err => err);
         }
 
-        axios.get(process.env.REACT_APP_API_HOST_URL+'/category/')
+        axios.get(process.env.REACT_APP_API_HOST_URL+'/category/', {
+            headers: authToken()
+        })
             .then((response) => {
                 this.setState({
                     categories: response.data.data,
@@ -76,12 +81,16 @@ export default class ProductCreate extends React.Component{
 
         let id = this.props.match.params.id;
         if(id) {
-            axios.post(process.env.REACT_APP_API_HOST_URL+'/product/update/'+id, this.state.product)
+            axios.post(process.env.REACT_APP_API_HOST_URL+'/product/update/'+id, this.state.product, {
+                headers: authToken()
+            })
             .then((response) => {
                 history.push('/admin/product');
             })
         } else {
-        axios.post(process.env.REACT_APP_API_HOST_URL+'/product/create', this.state.product)
+        axios.post(process.env.REACT_APP_API_HOST_URL+'/product/create', this.state.product, {
+            headers: authToken()
+        })
             .then((response) => {
                 history.push('/admin/product');
             })
