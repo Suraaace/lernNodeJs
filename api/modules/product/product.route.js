@@ -1,10 +1,12 @@
 const express = require("express");
 const routes = express.Router();
+const authMiddleware = require("../../middleware/auth.middleware");
 
 
 let Product = require('./product.model');
 
-routes.route('/').get( async (req, res) => {
+// routes.route('/').get( async (req, res) => {
+routes.get('/', authMiddleware, async (req, res) => {
     
     let search = {};
     if(req.query.search) search = JSON.parse(req.query.search);
@@ -46,7 +48,9 @@ routes.route('/').get( async (req, res) => {
     res.status(200).json(response);
 });
 
-routes.route('/:id').get((req, res)=>{
+// routes.route('/:id').get((req, res)=>{
+routes.get('/', authMiddleware, (req, res) => {
+
     let id = req.params.id;
 
     Product.findById(id, (err, product) => {
@@ -62,7 +66,8 @@ routes.route('/:id').get((req, res)=>{
 
 });
 
-routes.route('/create').post((req,res) => {
+// routes.route('/create').post((req,res) => {
+routes.post('/create', authMiddleware, (req, res) => { 
     let obj = {
         name : req.body.name,
         description : req.body.description,
@@ -83,7 +88,8 @@ routes.route('/create').post((req,res) => {
     })
 });
 
-routes.route('/update/:id').post((req, res) => {
+// routes.route('/update/:id').post((req, res) => {
+routes.post('/update/:id', authMiddleware, (req, res) => {
     
     let id = req.params.id;
 
@@ -109,7 +115,8 @@ routes.route('/update/:id').post((req, res) => {
 
 });
 
-routes.route('/delete/:id').delete((req, res) =>{
+// routes.route('/delete/:id').delete((req, res) =>{
+routes.delete('/delete/:id', authMiddleware, (req, res) => {
     let id = req.params.id;
 
     Product.findByIdAndRemove({_id: id}, (err, product) =>{

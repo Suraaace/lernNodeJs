@@ -1,5 +1,9 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'axios-progress-bar/dist/nprogress.css';
+
+import {loadProgressBar} from 'axios-progress-bar';
+
 import {
     Router,
     Switch,
@@ -35,6 +39,8 @@ import {Account} from "./pages/frontend/modules/Account";
 import {GlobalStoreProvider, GlobalStore} from 'global-store-hook';
 
 export const SiteRoutes = (props) => {
+    
+    loadProgressBar();
 
     let cart = localStorage.getItem('cart');
     if(!cart) {
@@ -47,7 +53,8 @@ export const SiteRoutes = (props) => {
         cart: cart,
         user: {
             _id: "5e78c54d79771f735e168589",
-            name: "Kiran Mulmi"
+            name: "Kiran Mulmi",
+            //email: "a"
         }
     };
 

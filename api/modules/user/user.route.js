@@ -4,7 +4,8 @@ var randomstring = require("randomstring");
 let User = require('./user.model');
 const authMiddleware = require("../../middleware/auth.middleware");
 
-routes.route('/create').post((req, res) => {
+// routes.route('/create').post((req, res) => {
+routes.post('/create', authMiddleware, (req, res) => {
 
     let obj = {
         firstName: req.body.firstName,
@@ -27,8 +28,8 @@ routes.route('/create').post((req, res) => {
 
 });
 
-//routes.route('/').get( async (req, res) => {
-routes.get('/', authMiddleware, async (req, res) => {
+// routes.route('/').get( async (req, res) => {
+routes.get('/', authMiddleware, async (req, res) => { // for authorization
     let search = JSON.parse(req.query.search);
     // let search = {};
     // if(req.query.search) search = JSON.parse(req.query.search);
@@ -73,7 +74,8 @@ routes.get('/', authMiddleware, async (req, res) => {
     res.status(200).json(response);
 });
 
-routes.route('/:id').get((req, res) => {
+// routes.route('/:id').get((req, res) => {
+routes.get('/:id', authMiddleware, (req, res) => {
     let id = req.params.id;
 
     //User.findById(id, (err, user) => {
@@ -89,7 +91,8 @@ routes.route('/:id').get((req, res) => {
     });
 });
 
-routes.route('/update/:id').post((req, res) => {
+// routes.route('/update/:id').post((req, res) => {
+routes.post('/update/:id', authMiddleware, (req, res) => {
     let id = req.params.id;
 
     User.findById(id, (err, user) => {
@@ -114,7 +117,8 @@ routes.route('/update/:id').post((req, res) => {
     });
 });
 
-routes.route('/delete/:id').delete((req, res) => {
+// routes.route('/delete/:id').delete((req, res) => {
+routes.delete('/delete/:id', authMiddleware, (req, res) =>{
     //Fetch Data from Database
 
     let id = req.params.id;

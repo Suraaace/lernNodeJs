@@ -51,7 +51,8 @@ routes.get('/', authMiddleware, async (req, res) => {
     res.status(200).json(response);
 });
 
-routes.route('/create').post((req, res) => {
+// routes.route('/create').post((req, res) => {
+routes.post('/create', authMiddleware, (req, res) => {
     let obj ={
         product: req.body.product,
         user: req.body.user,
@@ -70,7 +71,8 @@ routes.route('/create').post((req, res) => {
     })
 });
 
-routes.route('/update/:id').post((req, res) => {
+// routes.route('/update/:id').post((req, res) => {
+routes.post('/update/:id', authMiddleware, (req, res) => {
     let id = req.params.id;
     
     Order.findById(id, (err, order) => {
@@ -92,7 +94,8 @@ routes.route('/update/:id').post((req, res) => {
     });
 });
 
-routes.route('/delete/:id').delete((req, res) => {
+// routes.route('/delete/:id').delete((req, res) => {
+routes.delete('/delete/:id', authMiddleware, (req,res) => {
     
     let id = req.params.id;
 
