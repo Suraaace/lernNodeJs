@@ -55,6 +55,24 @@
   background: #828384;
 }
 
+.navbar-wrapper-frontend a,
 .navbar-wrapper a {
   color: #ffffff !important;
+}
+
+.navbar-wrapper-frontend {
+  background: #4d8446;
+}
+
+#nprogress .bar {
+  background: red !important;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 20px red, 0 0 10px red !important;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: red !important;
+  border-left-color: red !important;
 }
